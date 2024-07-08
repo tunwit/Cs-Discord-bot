@@ -15,21 +15,22 @@ class trackAPI(commands.Cog):
   Choice(name = "OFF",value="OFF"),])
     async def track(self,interaction:discord.Interaction,channel:discord.TextChannel,status:str): 
         await interaction.response.defer()
+        with open('database\\data.json','r') as database:
+            data = json.load(database) 
         if status == 'ON':
-            with open('database\\data.json','r') as database:
-                data = json.load(database) 
-                data["trackvc"]["channel"].update({
-                    interaction.guild.id:channel.id
-                })
+            if str(interaction.guild.id) in list(data["trackvc"]["channel"]):
+                data["trackvc"]["channel"].pop(str(interaction.guild.id))
+            data["trackvc"]["channel"].update({
+                interaction.guild.id:channel.id
+            })
 
             with open('database\\data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"Set <#{channel.id}> to Track-vc",ephemeral=True)
         else:
-            with open('database\\data.json','r') as database:
-                data = json.load(database) 
-                if channel.id in data["trackvc"]["channel"]:
-                    data["trackvc"]["channel"].pop(interaction.guild.id)
+            if str(interaction.guild.id) in list(data["trackvc"]["channel"]):
+                if channel.id == data["trackvc"]["channel"][str(interaction.guild.id)]:
+                    data["trackvc"]["channel"].pop(str(interaction.guild.id))
 
             with open('database\\data.json', 'w') as database:
                 json.dump(data, database,indent=4)
@@ -40,7 +41,6 @@ class trackAPI(commands.Cog):
         with open('database\\data.json','r') as database:
                 data = json.load(database) 
         data = data["trackvc"]["channel"]
-        print(member.guild.id,data)
         if not data:
             return
         if member == self.bot.user:
@@ -48,11 +48,11 @@ class trackAPI(commands.Cog):
         if str(member.guild.id) not in list(data):
             return
         if before.channel == None and after.channel != None: #None -> join
-            embed=discord.Embed(description=f"✅ **{member}** เข้าร่วมช่อง ``🔊 {after.channel.name}``",color=0x19AD3B)
+            embed=discord.Embed(description=f"✅ **{member}** Joined ``🔊 {after.channel.name}``",color=0x19AD3B)
         elif before.channel != None and after.channel == None: #Join -> None
-            embed=discord.Embed(description=f"📴 **{member}** ออกจากช่อง ``🔊 {before.channel.name}``",color=0xcc8c2d)
+            embed=discord.Embed(description=f"📴 **{member}** Leave ``🔊 {before.channel.name}``",color=0xcc8c2d)
         elif before.channel != None and after.channel != None and before.channel != after.channel: #Join -> Join (move to)
-            embed=discord.Embed(description=f"🔃 **{member}** ย้ายจาก ``🔊 {before.channel.name}`` ไปที่ ``🔊 {after.channel.name}``",color=0x2bc2b3)
+            embed=discord.Embed(description=f"🔃 **{member}** Move from ``🔊 {before.channel.name}`` to ``🔊 {after.channel.name}``",color=0x2bc2b3)
         else:
             return
         embed.set_author(name=member.name+member.discriminator,icon_url=member.display_avatar.url)
