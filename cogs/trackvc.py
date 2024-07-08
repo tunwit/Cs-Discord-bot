@@ -48,9 +48,9 @@ class trackAPI(commands.Cog):
         if str(member.guild.id) not in list(data):
             return
         if before.channel == None and after.channel != None: #None -> join
-            embed=discord.Embed(description=f"✅ **<@{member.id}>** Joined 🔊 <#{after.channel.id}>",color=0x19AD3B)
+            embed=discord.Embed(description=f"<a:check:1259893528499195954> | **<@{member.id}>** Joined 🔊 <#{after.channel.id}>",color=0x19AD3B)
         elif before.channel != None and after.channel == None: #Join -> None
-            embed=discord.Embed(description=f"📴 **<@{member.id}>** Leave 🔊 <#{before.channel.id}>",color=0xcc8c2d)
+            embed=discord.Embed(description=f"<a:w_check:1259893785207509052> | **<@{member.id}>** Leave 🔊 <#{before.channel.id}>",color=0xcc8c2d)
         elif before.channel != None and after.channel != None and before.channel != after.channel: #Join -> Join (move to)
             embed=discord.Embed(description=f"🔃 **<@{member.id}>** Move from 🔊 <#{before.channel.id}> to 🔊 <#{after.channel.id}>",color=0x2bc2b3)
         else:
