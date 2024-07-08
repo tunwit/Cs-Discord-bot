@@ -18,7 +18,9 @@ class trackAPI(commands.Cog):
         if status == 'ON':
             with open('database\\data.json','r') as database:
                 data = json.load(database) 
-                data["trackvc"]["channel"].append(channel.id)
+                data["trackvc"]["channel"].update({
+                    interaction.guild.id:channel.id
+                })
 
             with open('database\\data.json', 'w') as database:
                 json.dump(data, database,indent=4)
@@ -27,7 +29,7 @@ class trackAPI(commands.Cog):
             with open('database\\data.json','r') as database:
                 data = json.load(database) 
                 if channel.id in data["trackvc"]["channel"]:
-                    data["trackvc"]["channel"].remove(channel.id)
+                    data["trackvc"]["channel"].pop(interaction.guild.id)
 
             with open('database\\data.json', 'w') as database:
                 json.dump(data, database,indent=4)
@@ -43,7 +45,7 @@ class trackAPI(commands.Cog):
             return
         if member == self.bot.user:
            return
-        if member.guild.id not in data:
+        if str(member.guild.id) not in list(data):
             return
         if before.channel == None and after.channel != None: #None -> join
             embed=discord.Embed(description=f"✅ **{member}** เข้าร่วมช่อง ``🔊 {after.channel.name}``",color=0x19AD3B)
@@ -55,7 +57,7 @@ class trackAPI(commands.Cog):
             return
         embed.set_author(name=member.name+member.discriminator,icon_url=member.display_avatar.url)
         embed.set_footer(text = time.strftime("%D | %H:%M:%S"))  
-        channel = member.guild.get_channel(member.guild.id)
+        channel = member.guild.get_channel(data[str(member.guild.id)])
         await channel.send(embed=embed)
 
 async def setup(bot):    
