@@ -34,9 +34,9 @@ class role(commands.Cog):
     @commands.Cog.listener()
     async def on_interaction(self,interaction:discord.Interaction):
         if interaction.data.get('component_type') == 2:
-            await interaction.response.defer()
             custom_id = interaction.data.get('custom_id')
             if "role_id" in custom_id:
+                await interaction.response.defer()
                 with open('database\\data.json','r') as database:
                     data = json.load(database) 
                 target_role = interaction.guild.get_role(data["role"][custom_id])

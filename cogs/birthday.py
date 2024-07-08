@@ -4,7 +4,9 @@ import discord
 import requests
 from bs4 import BeautifulSoup
 import datetime
-
+from ui.button import buttin
+import math
+import itertools
 
 class birthdayAPI(commands.Cog):
     def __init__(self, bot ):
@@ -58,16 +60,33 @@ class birthdayAPI(commands.Cog):
         result_positive.update(result_negative)
         return result_positive
 
-
-
-
     @app_commands.command(name="birthday",description="get birthday of the cs member")
     async def birthday(self,interaction:discord.Interaction):
+        await interaction.response.defer()
         data = await self.getdata()
         sort = await self.sort_date(data)
-        for i,name in enumerate(sort,1):
-            person = sort[name]
-            print(f"{i}. {person['name']} {person['nickname']} {person['birthday']} In {person['diff'].days} days")
+        page = math.ceil(len(sort) / 10)
+        if page == 0:
+            page = 1
+        pages = []
+        for i in range(page):
+            embed = discord.Embed(title="Birth Day Countdown!!",color=0xFFFFFF)
+            persons = list(itertools.islice(sort, 0, 10))
+            
+            if i == 0:
+                first = sort[list(sort)[0]]
+                embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff'].days} `** days")
 
+            fmt = "\n".join(f"{j+(10*i)}. {sort[name]['nickname']} In {sort[name]['diff'].days} days" for j,name in enumerate(persons,1))
+            embed.add_field(name="Upcoming",value=f"`{fmt}`",inline=False)
+            for index in range(10):
+                try:
+                    sort.pop(list(sort)[0])
+                except:pass
+            pages.append(embed)
+                
+        view = buttin(pages,None,interaction)
+        view.interaction = interaction
+        await interaction.followup.send(embed=pages[0], view=view)
 async def setup(bot):    
   await bot.add_cog(birthdayAPI(bot))   
