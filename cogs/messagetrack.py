@@ -93,7 +93,7 @@ class messageAPI(commands.Cog):
         guild = self.bot.get_guild(payload.guild_id)
         member = guild.get_member(author)
         print(member)
-        embed.set_author(name=member.name+member.discriminator,icon_url=member.display_avatar.url)
+        embed.set_author(name=member.name,icon_url=member.display_avatar.url)
         embed.set_footer(text = time.strftime("%D | %H:%M:%S"))  
         guild:discord.Guild = self.bot.get_guild(payload.guild_id)
         channel = guild.get_channel(data[str(payload.guild_id)])
