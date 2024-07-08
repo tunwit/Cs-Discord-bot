@@ -27,7 +27,7 @@ class role(commands.Cog):
             data["role"]["spe_role_id"] = pay.id
 
         with open('database\\data.json', 'w') as database:
-            json.dump(data, database)
+            json.dump(data, database,indent=4)
 
         await interaction.followup.send(message,view=button_())
 
