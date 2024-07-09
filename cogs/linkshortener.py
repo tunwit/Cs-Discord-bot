@@ -6,11 +6,6 @@ import requests
 class linkshortener(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
-
-    @app_commands.command(name="hello",description="respond to use")
-    async def hello(self,interaction:discord.Interaction) :
-        await interaction.response.defer()
-        await interaction.followup.send("Hi!")
     
     @app_commands.command(name="linkshortener",description="shorten your link")
     @app_commands.describe(url="link or url")

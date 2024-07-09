@@ -23,6 +23,8 @@ class joinleaveAPI(commands.Cog):
         with open('database\\data.json','r') as database:
                 data = json.load(database) 
         data = data["joinleave"]["channel"]
+        if member == self.bot.user:
+            return
         if not data:
             return
         if str(member.guild.id) not in list(data):
@@ -54,6 +56,8 @@ class joinleaveAPI(commands.Cog):
         with open('database\\data.json','r') as database:
                 data = json.load(database) 
         data = data["joinleave"]["channel"]
+        if member == self.bot.user:
+            return
         if not data:
             return
         if str(member.guild.id) not in list(data):
