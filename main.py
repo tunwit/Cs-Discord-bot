@@ -16,6 +16,7 @@ class csbot(commands.Bot):
             application_id=config["APPLICATION_ID"],
         )
         self.config = config
+        self.invites = {}
 
     async def setup_hook(self):
         for filename in os.listdir("./cogs"):
@@ -26,8 +27,16 @@ class csbot(commands.Bot):
 
 bot = csbot()
 
+async def get_invites():
+    guilds = bot.guilds
+    for guild in guilds:
+        bot.invites.update({
+            str(guild.id):await guild.invites()
+        })
+        
 @bot.event
 async def on_ready():
+    await get_invites()
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
