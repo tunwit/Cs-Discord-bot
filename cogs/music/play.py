@@ -64,7 +64,7 @@ class playAPI(commands.Cog):
         else:
             embed = discord.Embed(
                 title=f"Add playlist `{playlist_title}` {number} song.",
-                description=f"{respound.get('added')} ✅",
+                description="Has been added to the queue. ✅",
                 color=0x19AD3B,
             )
             embed.set_footer(
@@ -142,7 +142,7 @@ class playAPI(commands.Cog):
         
         if not vc.playing and not vc.queue:
             await vc.queue.put_wait(track)
-            await vc.set_volume(100)
+            await vc.set_volume(70)
             await vc.play(await vc.queue.get_wait(),populate=True)
             print(f"playing {vc.current} requested by {vc.current.extras.requester}")
         else:

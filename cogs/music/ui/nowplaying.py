@@ -16,8 +16,8 @@ trans_autoMode= {
         }
 
 class nowplaying: 
-
-    def convert(self,milliseconds):
+    
+    def convert(milliseconds):
         seconds = milliseconds // 1000  # Convert milliseconds to seconds
         seconds = seconds % (24 * 3600)
         hour = seconds // 3600
@@ -39,7 +39,8 @@ class nowplaying:
                     )    
                     try:
                         duration = f"{self.convert(vc.position)}/{self.convert(vc.current.length)}"
-                    except:
+                    except Exception as e:
+                        print("durationerror",e)
                         duration = "Unable to calculate"
                     npembed = discord.Embed(
                         title=f"{vc.current.title}  <a:blobdancee:969575788389220392>",
@@ -51,7 +52,7 @@ class nowplaying:
                         icon_url=f"{vc.current.extras.requester_icon}",
                     )
                     npembed.add_field(
-                        name="Playing on the channel", value=f"<#{vc.channel.id}>"
+                        name="Channel", value=f"<#{vc.channel.id}>"
                     )
                     npembed.add_field(
                         name="Duration", value=f"`{duration}`"

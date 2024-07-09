@@ -46,6 +46,8 @@ async def node_connect():
     else:
         node = wavelink.Node(uri ='http://n1.ll.darrennathanael.com:2269', password="glasshost1984") # prefered Lavalink server
 
+    await wavelink.Pool.connect(client=bot, nodes=[node])
+
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
     print(f"Wavelink {node.node.identifier} connected")

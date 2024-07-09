@@ -2,6 +2,7 @@ from discord.ui import Button, View
 import discord
 import wavelink
 from ui.embed_gen import embed_fail
+
 async def check_before_play(interaction: discord.Interaction):
     vc: wavelink.Player = interaction.guild.voice_client
     if vc == None:
@@ -28,6 +29,15 @@ class pp(Button):
         self.interaction = interaction
         self.np = np
 
+    def convert(self,milliseconds):
+        seconds = milliseconds // 1000  # Convert milliseconds to seconds
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        return "%d:%02d:%02d" % (hour, minutes, seconds)
+    
     async def callback(self, interaction):
         await interaction.response.defer()
         vc: wavelink.Player = interaction.guild.voice_client
@@ -120,6 +130,15 @@ class lo(Button):
         self.interaction = interaction
         self.np = np
 
+    def convert(self,milliseconds):
+        seconds = milliseconds // 1000  # Convert milliseconds to seconds
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        return "%d:%02d:%02d" % (hour, minutes, seconds)
+    
     async def callback(self, interaction):
         await interaction.response.defer()
         vc: wavelink.Player = interaction.guild.voice_client
@@ -151,6 +170,15 @@ class dw(Button):
         self.interaction = interaction
         self.np = np
 
+    def convert(self,milliseconds):
+        seconds = milliseconds // 1000  # Convert milliseconds to seconds
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        return "%d:%02d:%02d" % (hour, minutes, seconds)
+    
     async def callback(self, interaction):
         await interaction.response.defer()
         vc: wavelink.Player = interaction.guild.voice_client
@@ -177,6 +205,15 @@ class uw(Button):
         self.interaction = interaction
         self.np = np
 
+    def convert(self,milliseconds):
+        seconds = milliseconds // 1000  # Convert milliseconds to seconds
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        return "%d:%02d:%02d" % (hour, minutes, seconds)
+    
     async def callback(self, interaction):
         await interaction.response.defer()
         vc: wavelink.Player = interaction.guild.voice_client
@@ -256,6 +293,15 @@ class au(Button):
         )
         self.interaction: discord.Interaction = interaction
         self.np = np
+
+    def convert(self,milliseconds):
+        seconds = milliseconds // 1000  # Convert milliseconds to seconds
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        return "%d:%02d:%02d" % (hour, minutes, seconds)
 
     async def callback(self, interaction: discord.Interaction):
         await interaction.response.defer()
