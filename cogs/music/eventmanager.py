@@ -6,6 +6,7 @@ from cogs.music.ui.nowplaying import nowplaying
 from ui.embed_gen import embed_fail,embed_info
 import asyncio
 from async_timeout import timeout
+from cogs.music.utility.cleanup import cleanup
 
 class eventManager(commands.Cog):
     def __init__(self, bot ):
@@ -38,17 +39,6 @@ class eventManager(commands.Cog):
             await asyncio.sleep(9)
             await asyncio.sleep(1)
         vc.task.cancel()
-    
-    async def cleanup(self, guild, frm):
-        vc: wavelink.Player = guild.voice_client
-        if vc == None:
-            return
-        vc.queue.clear()
-        try:
-            await vc.np.delete()
-        except:
-            pass
-        await vc.disconnect()
 
     async def nosong(self, interaction:discord.Interaction):
         i=0
@@ -91,7 +81,7 @@ class eventManager(commands.Cog):
                 async with timeout(self.nosongtime):
                     await self.nosong(interaction)
             except:
-                await self.cleanup(interaction.guild, "trackend")
+                await cleanup(interaction.guild, "trackend")
                 embed = embed_info(vc.interaction, "No more songs added, I'll be disconnect")
                 try:
                     d = await interaction.followup.send(embed=embed)

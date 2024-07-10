@@ -21,7 +21,7 @@ class removeAPI(commands.Cog):
             vc.interaction = interaction
             delete = None
             if vc.queue.mode == wavelink.QueueMode.loop_all:
-                if index > (vc.queue.count+vc.queue.history.count):#Index out of range handler
+                if index > (vc.queue.count+vc.queue.history.count) or index < 1:#Index out of range handler
                     erembed = embed_fail(interaction, "Please check the deletion index again")
                     await interaction.followup.send(embed=erembed)
                     return
@@ -32,7 +32,7 @@ class removeAPI(commands.Cog):
                     delete = vc.queue.peek(index-1)
                     vc.queue.delete(index-1)
             else:
-                if index > vc.queue.count: #Index out of range handler
+                if index > vc.queue.count or index < 1: #Index out of range handler
                     erembed = embed_fail(interaction, "Please check the deletion index again")
                     await interaction.followup.send(embed=erembed)
                     return

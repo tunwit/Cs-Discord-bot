@@ -8,6 +8,7 @@ from cogs.music.eventmanager import eventManager
 from cogs.music.utility.check_before_play import check_before_play
 from cogs.music.ui.nowplaying import nowplaying
 from ui.embed_gen import embed_success
+from cogs.music.utility.cleanup import cleanup
 
 class dcAPI(commands.Cog):
     def __init__(self, bot ):
@@ -21,7 +22,7 @@ class dcAPI(commands.Cog):
         if await check_before_play(interaction):
             vc: wavelink.Player = interaction.guild.voice_client
             vc.interaction = interaction
-            await self.cleanup(interaction.guild, "dc")
+            await cleanup(interaction.guild, "dc")
             embed = embed_success(interaction, "Disconnected ✅")
             await interaction.followup.send(embed=embed)
 
