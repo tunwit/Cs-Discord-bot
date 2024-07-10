@@ -3,6 +3,7 @@ from discord.ext import commands
 import discord
 from discord import app_commands
 from cogs.music.ui.controlpanal import *
+from cogs.music.eventmanager import eventManager
 
 class nowplayingAPI(commands.Cog):
     def __init__(self, bot ):
@@ -34,7 +35,7 @@ class nowplayingAPI(commands.Cog):
                 vc.task.cancel() # To prevent bot from send Nowplaying message twice
             except:
                 pass
-            vc.task = self.bot.loop.create_task(self.current_time(vc.interaction))
+            vc.task = self.bot.loop.create_task(eventManager.current_time(self,vc.interaction))
 
 async def setup(bot):    
   await bot.add_cog(nowplayingAPI(bot))  
