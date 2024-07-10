@@ -3,6 +3,7 @@ from PIL import Image, ImageDraw
 import itertools
 import discord
 import io
+from cogs.music.utility.convert import convert
 
 trans_queueMode= {
             'wavelink.QueueMode.normal':"Disable",
@@ -16,15 +17,6 @@ trans_autoMode= {
         }
 
 class nowplaying: 
-    
-    def convert(milliseconds):
-        seconds = milliseconds // 1000  # Convert milliseconds to seconds
-        seconds = seconds % (24 * 3600)
-        hour = seconds // 3600
-        seconds %= 3600
-        minutes = seconds // 60
-        seconds %= 60
-        return "%d:%02d:%02d" % (hour, minutes, seconds)
 
     async def np(self,interaction, send=False):
             vc: wavelink.Player = interaction.guild.voice_client
@@ -38,7 +30,7 @@ class nowplaying:
                         f'` {index}.{track} `' for index,track in enumerate(upcoming,start=1)  
                     )    
                     try:
-                        duration = f"{self.convert(vc.position)}/{self.convert(vc.current.length)}"
+                        duration = f"{convert(vc.position)}/{convert(vc.current.length)}"
                     except Exception as e:
                         print("durationerror",e)
                         duration = "Unable to calculate"

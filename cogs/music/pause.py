@@ -6,26 +6,11 @@ from discord.app_commands import Choice
 from ui.embed_gen import embed_fail,embed_success
 from cogs.music.ui.controlpanal import *
 from cogs.music.ui.nowplaying import nowplaying
+from cogs.music.utility.check_before_play import check_before_play
 
 class pauseAPI(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
-
-    async def check_before_play(self,interaction: discord.Interaction):
-        vc: wavelink.Player = interaction.guild.voice_client
-        if vc == None:
-            embed = embed_fail(interaction,"❌ Bot is currently not in the voice channel.")
-            await interaction.followup.send(embed=embed)
-            return False
-        if interaction.user.voice == None:
-            embed = embed_fail(interaction,"❌ You are not currently in voice channel")
-            await interaction.followup.send(embed=embed)
-            return False
-        if interaction.guild.voice_client.channel != interaction.user.voice.channel:
-            embed = embed_fail(interaction,"❌ Bot is now used by others voice channel")
-            await interaction.followup.send(embed=embed)
-            return False
-        return True
 
     @app_commands.command(name="resume", description="Resume music")
     async def resume(self, interaction: discord.Interaction):
