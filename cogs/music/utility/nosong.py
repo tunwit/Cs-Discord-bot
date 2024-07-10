@@ -2,7 +2,7 @@ import asyncio
 import discord
 import wavelink
 
-async def nosong(self, interaction:discord.Interaction):
+async def nosong(interaction:discord.Interaction):
     i=0
     while True:
         vc: wavelink.Player = interaction.guild.voice_client

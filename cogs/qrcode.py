@@ -39,7 +39,7 @@ class qrcodeAPI(commands.Cog):
             img.save(image_binary, format="PNG")
             image_binary.seek(0)
             await interaction.followup.send(
-                content=f"This is QR CODE for [your link]({text})",
+                content=f"This is QR CODE for [yourlink]({text})",
                 file=File(fp=image_binary, filename="image.png"),
             )
 

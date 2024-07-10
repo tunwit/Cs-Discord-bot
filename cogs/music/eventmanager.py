@@ -72,7 +72,8 @@ class eventManager(commands.Cog):
             try:
                 async with timeout(self.nosongtime):
                     await nosong(interaction)
-            except:
+            except Exception as e:
+                print(e)
                 await cleanup(interaction.guild, "trackend")
                 embed = embed_info(vc.interaction, "No more songs added, I'll be disconnect")
                 try:

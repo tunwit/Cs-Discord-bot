@@ -35,7 +35,7 @@ class nowplaying:
                         print("durationerror",e)
                         duration = "Unable to calculate"
                     npembed = discord.Embed(
-                        title=f"{vc.current.title}  <a:blobdancee:969575788389220392>",
+                        title=f"{vc.current.title}",
                         url=vc.current.uri,
                         color=0xFFFFFF,
                     )
