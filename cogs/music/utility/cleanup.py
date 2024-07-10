@@ -2,7 +2,7 @@
 import wavelink
 import discord
 
-async def cleanup(self, guild:discord.Guild, frm):
+async def cleanup(guild:discord.Guild, frm):
     vc: wavelink.Player = guild.voice_client
     if vc == None:
         return

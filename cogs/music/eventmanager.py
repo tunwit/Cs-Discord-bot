@@ -90,6 +90,35 @@ class eventManager(commands.Cog):
                 except:
                     pass
                 return
- 
+
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member: discord.Member, before, after):
+        vc: wavelink.Player = member.guild.voice_client
+        if member == self.bot.user:
+            return
+        if not vc:
+            return
+        if before.channel != after.channel:
+            if after.channel == vc.channel:
+                return
+            if after.channel != vc.channel:
+                if len(vc.channel.members) <= 1:
+                    lastone = member
+                    try:
+                        async with timeout(self.alonetime):
+                            await self.checkdc(member)
+                            pass
+                    except asyncio.TimeoutError:
+                        await cleanup(member.guild, "voiceupdate no one")
+                        embed = embed_info(lastone, "No one is listening. I'll be disconnect. ⭕️")
+                        try:
+                            d = await vc.interaction.followup.send(embed=embed)
+                            await asyncio.sleep(5)
+                            await d.delete()
+                        except:
+                            pass
+                        return
+                    return
+                
 async def setup(bot):    
   await bot.add_cog(eventManager(bot))  
