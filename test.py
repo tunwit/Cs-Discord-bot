@@ -9,6 +9,6 @@ qr.add_data('https://www.canva.com/design/DAGKjjqrxcU/HxN9ZuuJaBhnradnYKZ0Dw/edi
 # img_1 = qr.make_image(image_factory=StyledPilImage, module_drawer=RoundedModuleDrawer())
 # img_2 = qr.make_image(image_factory=StyledPilImage, color_mask=RadialGradiantColorMask())
 img_3 = qr.make_image(image_factory=StyledPilImage, embeded_image_path="round.png",
-                      color_mask=RadialGradiantColorMask(center_color=((3, 1, 51)),edge_color=((27, 12, 69))),
+                      color_mask=RadialGradiantColorMask(center_color=((16, 7, 41)),edge_color=((27, 12, 69))),
                       eye_drawer=RoundedModuleDrawer(radius_ratio=1))
-img_3.show()
+img_3.save("qr.png")
