@@ -1,0 +1,1 @@
+start cmd.exe /k "cd lavalink && java -jar lavalink.jar

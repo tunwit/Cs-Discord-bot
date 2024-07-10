@@ -3,9 +3,11 @@ import discord
 import os
 from dotenv import load_dotenv
 from setup import config
-
+from pymongo.mongo_client import MongoClient
+import wavelink
 
 intents = discord.Intents.all()
+LOCAL_LAVALINK = True
 
 class csbot(commands.Bot):
     def __init__(self, **kwargs):
@@ -16,13 +18,17 @@ class csbot(commands.Bot):
             application_id=config["APPLICATION_ID"],
         )
         self.config = config
+        self.mango = MongoClient(config["MONGO"])["Main"]
         self.invites = {}
 
     async def setup_hook(self):
         for filename in os.listdir("./cogs"):
+            if os.path.isdir(f"./cogs/{filename}") and not filename.startswith("_"):
+                for filename_in in os.listdir(f"./cogs/{filename}"):
+                     if filename_in.endswith(".py") and not filename_in.startswith("_"):
+                        await self.load_extension(f"cogs.{filename}.{filename_in[:-3]}")
             if filename.endswith(".py") and not filename.startswith("_"):
                 await self.load_extension(f"cogs.{filename[:-3]}")
-
         await self.tree.sync()
 
 bot = csbot()
@@ -33,10 +39,23 @@ async def get_invites():
         bot.invites.update({
             str(guild.id):await guild.invites()
         })
-        
+
+async def node_connect(): 
+    if LOCAL_LAVALINK:
+        node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=1) # Local Lavalink server
+    else:
+        node = wavelink.Node(uri ='http://n1.ll.darrennathanael.com:2269', password="glasshost1984") # prefered Lavalink server
+
+    await wavelink.Pool.connect(client=bot, nodes=[node])
+
+@bot.event
+async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
+    print(f"Wavelink {node.node.identifier} connected")
+
 @bot.event
 async def on_ready():
     await get_invites()
+    await node_connect()
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
