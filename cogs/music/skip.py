@@ -22,7 +22,7 @@ class skipAPI(commands.Cog):
             vc: wavelink.Player = interaction.guild.voice_client
             vc.interaction = interaction
             if to:
-                if to > len(vc.queue):
+                if to > len(vc.queue) or to < 1:
                     embed = embed_fail(interaction, "Please check music index again.")
                     await interaction.followup.send(embed=embed,ephemeral=True)
                     return
