@@ -13,7 +13,7 @@ class nowplayingAPI(commands.Cog):
     @app_commands.command(name="nowplaying", description="Show current music")
     async def nowplaying(self, interaction: discord.Interaction):
         await interaction.response.defer()
-        if await self.check_before_play(interaction):
+        if await check_before_play(interaction):
             vc: wavelink.Player = interaction.guild.voice_client
             vc.interaction = interaction
             try:

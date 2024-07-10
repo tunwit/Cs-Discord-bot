@@ -15,7 +15,7 @@ class pauseAPI(commands.Cog):
     @app_commands.command(name="resume", description="Resume music")
     async def resume(self, interaction: discord.Interaction):
         await interaction.response.defer()
-        if await self.check_before_play(interaction):
+        if await check_before_play(interaction):
             vc: wavelink.Player = interaction.guild.voice_client
             vc.interaction = interaction
             re = [x for x in vc.Myview.children if x.custom_id == "pp"][0]
@@ -28,7 +28,7 @@ class pauseAPI(commands.Cog):
     @app_commands.command(name="pause", description="Pause music")
     async def pause(self, interaction: discord.Interaction):
         await interaction.response.defer()
-        if await self.check_before_play(interaction):
+        if await check_before_play(interaction):
             vc: wavelink.Player = interaction.guild.voice_client
             vc.interaction = interaction
             re = [x for x in vc.Myview.children if x.custom_id == "pp"][0]

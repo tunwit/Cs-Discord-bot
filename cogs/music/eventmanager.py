@@ -12,15 +12,6 @@ class eventManager(commands.Cog):
         self.bot = bot
         self.nosongtime = 30
         self.alonetime = 25
-
-    def convert(self,milliseconds):
-        seconds = milliseconds // 1000  # Convert milliseconds to seconds
-        seconds = seconds % (24 * 3600)
-        hour = seconds // 3600
-        seconds %= 3600
-        minutes = seconds // 60
-        seconds %= 60
-        return "%d:%02d:%02d" % (hour, minutes, seconds)
     
     async def current_time(self, interaction):
         vc: wavelink.Player = interaction.guild.voice_client
