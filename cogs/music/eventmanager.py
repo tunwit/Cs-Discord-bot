@@ -7,11 +7,13 @@ from ui.embed_gen import embed_fail,embed_info
 import asyncio
 from async_timeout import timeout
 from cogs.music.utility.cleanup import cleanup
+from cogs.music.utility.checkdc import checkdc
+from cogs.music.utility.nosong import nosong
 
 class eventManager(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
-        self.nosongtime = 30
+        self.nosongtime = 25
         self.alonetime = 25
     
     async def current_time(self, interaction):
@@ -39,16 +41,6 @@ class eventManager(commands.Cog):
             await asyncio.sleep(9)
             await asyncio.sleep(1)
         vc.task.cancel()
-
-    async def nosong(self, interaction:discord.Interaction):
-        i=0
-        while True:
-            vc: wavelink.Player = interaction.guild.voice_client
-            if vc.queue or vc.current:
-                break
-            i+=1
-            print(f'counting no song {interaction.guild.name} | {i}')
-            await asyncio.sleep(0.4)
 
     @commands.Cog.listener()
     async def on_wavelink_track_start(self, payload:wavelink.payloads.TrackStartEventPayload):
@@ -79,7 +71,7 @@ class eventManager(commands.Cog):
         if not vc.queue and vc:
             try:
                 async with timeout(self.nosongtime):
-                    await self.nosong(interaction)
+                    await nosong(interaction)
             except:
                 await cleanup(interaction.guild, "trackend")
                 embed = embed_info(vc.interaction, "No more songs added, I'll be disconnect")
@@ -106,11 +98,12 @@ class eventManager(commands.Cog):
                     lastone = member
                     try:
                         async with timeout(self.alonetime):
-                            await self.checkdc(member)
+                            await checkdc(member)
                             pass
                     except asyncio.TimeoutError:
                         await cleanup(member.guild, "voiceupdate no one")
-                        embed = embed_info(lastone, "No one is listening. I'll be disconnect. ⭕️")
+                        embed=discord.Embed(description="No one is listening. I'll be disconnect. ⭕️",color=0x3495c2)
+                        embed.set_author(name=member.name,icon_url=member.display_avatar.url)
                         try:
                             d = await vc.interaction.followup.send(embed=embed)
                             await asyncio.sleep(5)
