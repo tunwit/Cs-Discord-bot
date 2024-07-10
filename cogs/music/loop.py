@@ -15,7 +15,7 @@ trans_queueMode= {
             'wavelink.QueueMode.loop_all':"Queue"
         }
 
-class autoplayAPI(commands.Cog):
+class loopAPI(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
     
@@ -42,9 +42,9 @@ class autoplayAPI(commands.Cog):
             elif vc.queue.mode == wavelink.QueueMode.loop_all:
                 lo.style = discord.ButtonStyle.green
             await nowplaying.np(self, interaction)
-            embed = embed_success(interaction, "Switch loop to {} successfull",trans_queueMode[status])
+            embed = embed_success(interaction, "Switch loop to **` {} `** successfull",trans_queueMode[status])
             await interaction.followup.send(embed=embed,ephemeral=True)
 
             
 async def setup(bot):    
-  await bot.add_cog(autoplayAPI(bot))  
+  await bot.add_cog(loopAPI(bot))  

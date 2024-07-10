@@ -25,12 +25,13 @@ class autoplayAPI(commands.Cog):
             if vc.autoplay == wavelink.AutoPlayMode.partial:
                 vc.autoplay = wavelink.AutoPlayMode.enabled
                 au.style = discord.ButtonStyle.green
+                embed = embed_success(interaction, "Autoplay successfully **` enabled `**")
             elif vc.autoplay == wavelink.AutoPlayMode.enabled:
                 vc.autoplay = wavelink.AutoPlayMode.partial
                 au.style = discord.ButtonStyle.gray
+                embed = embed_success(interaction, "Autoplay successfully **` disabled `**")
             await nowplaying.np(self, interaction)
-            embed = embed_success(interaction, "Autoplay successfully enabled")
             await interaction.followup.send(embed=embed,ephemeral=True)
-            
+
 async def setup(bot):    
   await bot.add_cog(autoplayAPI(bot))  
