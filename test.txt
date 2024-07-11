@@ -1,18 +1,15 @@
-เกมหน้าเล่นเเห่งปี `Overwatch`
+เกมหน้าเล่นเเห่งปี `Overwatch` <@407176297991634954>
 embed:
-    title:Overwatch
-    description:เกมหน้าเล่นเเห่งปี
+    title:title
+    description:description
     color:0xf79e2a
     fields:
-        name:status
-        value:`เกมหมา`
+        name:field1
+        value:`value`
     fields:
-        name:Fun
-        value:`No`
-    fields:
-        name:Free
-        value:`True`
+        name:field2
+        value:`value`
     thumbnail:
-        url:https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfF8KCM1YebEdamliDAyRN4Gey_YO5AZPFkzTLxXoDCBVjRX-qRzd2TTOE9KSoPldSY_I&usqp=CAU
+        url:url
     image:
-        url:https://imageio.forbes.com/specials-images/imageserve/633d0766771155cd9eed2e0f/Overwatch-2-heroes-Sojourn--Kiriko-and-Junker-Queen/960x0.jpg?format=jpg&width=960
+        url:url

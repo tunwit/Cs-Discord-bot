@@ -73,7 +73,8 @@ class announceAPI(commands.Cog):
                     try:
                         embed["fields"].append({
                             "name":lines[index:index+i][0].split(":")[1].lstrip(),
-                            "value":lines[index:index+i][1].split(":",1)[1].lstrip()
+                            "value":lines[index:index+i][1].split(":",1)[1].lstrip(),
+                            "inline":True
                         })
                     except:pass
                 else:
@@ -92,12 +93,22 @@ class announceAPI(commands.Cog):
     async def announce_file(self, interaction: discord.Interaction,file:discord.Attachment):
         await interaction.response.send_message("sending",ephemeral=True)
         result =  await self.extract(file)
-        print(result)
         for i in result:
-            if isinstance(i,dict):
-                await interaction.channel.send(embed = discord.Embed.from_dict(i))
-            else:
-                await interaction.channel.send(i)
+            try:
+                if isinstance(i,dict):
+                    await interaction.channel.send(embed = discord.Embed.from_dict(i))
+                else:
+                    await interaction.channel.send(i)
+            except:
+                await interaction.followup.send("something wrong with",ephemeral=True)
+                break
+    
+    # @app_commands.command(
+    #     name="announce_help",
+    #     description="send format to your dm",
+    # )
+    # async def announce_help(self, interaction: discord.Interaction,file:discord.Attachment):
+    #     await interaction.response.send_message("See help file in your DM",ephemeral=True)
         
 
 async def setup(bot):    
