@@ -103,12 +103,13 @@ class announceAPI(commands.Cog):
                 await interaction.followup.send("something wrong with",ephemeral=True)
                 break
     
-    # @app_commands.command(
-    #     name="announce_help",
-    #     description="send format to your dm",
-    # )
-    # async def announce_help(self, interaction: discord.Interaction,file:discord.Attachment):
-    #     await interaction.response.send_message("See help file in your DM",ephemeral=True)
+    @app_commands.command(
+        name="announce_help",
+        description="send format to your dm",
+    )
+    async def announce_help(self, interaction: discord.Interaction):
+        await interaction.response.send_message("See help file in your DM",ephemeral=True)
+        await interaction.user.send(file=discord.File(fp='format.txt',filename="format.txt"))
         
 
 async def setup(bot):    
