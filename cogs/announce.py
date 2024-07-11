@@ -88,7 +88,7 @@ class announceAPI(commands.Cog):
     
     @app_commands.command(
         name="announce_file",
-        description="make bot to announce message",
+        description="make bot to announce message via format file",
     )
     async def announce_file(self, interaction: discord.Interaction,file:discord.Attachment):
         await interaction.response.send_message("sending",ephemeral=True)
@@ -103,6 +103,14 @@ class announceAPI(commands.Cog):
                 await interaction.followup.send("something wrong with",ephemeral=True)
                 break
     
+    @app_commands.command(
+        name="announce_text",
+        description="make bot to announce message via text",
+    )
+    async def announce_text(self, interaction: discord.Interaction,message:str):
+        await interaction.response.send_message("sending",ephemeral=True)
+        await interaction.channel.send(message)
+
     @app_commands.command(
         name="announce_help",
         description="send format to your dm",
