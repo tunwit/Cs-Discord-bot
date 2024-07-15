@@ -13,9 +13,8 @@ class announceAPI(commands.Cog):
         self.bot = bot
     
     async def extract(self,file:discord.Attachment):
-        with open("test.txt","r") as f:
-            f = await file.to_file()
-            lines = [line.decode("utf-8")for line in f.fp.readlines()]+["$%"]
+        f = await file.to_file()
+        lines = [line.decode("utf-8")for line in f.fp.readlines()]+["$%"]
         spe_keywords = ["footer","fields","thumbnail","image"]
         state = None
         sub_state = None

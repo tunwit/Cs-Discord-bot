@@ -23,7 +23,7 @@ class birthdayAPI(commands.Cog):
             date = datetime.datetime.strptime(row[3].text,'%d/%m/%Y')
             result_ = datetime.date(date.year,date.month,date.day)
             today = datetime.date.today()
-            diff = datetime.date(2024,result_.month,result_.day) - datetime.date(2024,today.month,today.day)
+            diff = datetime.date(today.year,result_.month,result_.day) - datetime.date(today.year,today.month,today.day)
             info = {
                     "create_at":row[0].text,
                     "name":row[1].text,
@@ -52,7 +52,7 @@ class birthdayAPI(commands.Cog):
                     min_ = diff
                     p = person
             if min_ < 0:
-                newdata[p]["diff"] = datetime.timedelta(days=min_+345)
+                newdata[p]["diff"] = datetime.timedelta(days=min_+365)
                 result_negative.update({p:newdata[p]})
             else:
                 result_positive.update({p:newdata[p]})
@@ -72,12 +72,13 @@ class birthdayAPI(commands.Cog):
         for i in range(page):
             embed = discord.Embed(title="Birth Day Countdown!!",color=0xFFFFFF)
             persons = list(itertools.islice(sort, 0, 10))
-            
             if i == 0:
                 first = sort[list(sort)[0]]
-                embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff'].days} `** days")
-
-            fmt = "\n".join(f"{j+(10*i)}. {sort[name]['nickname']} In {sort[name]['diff'].days} days" for j,name in enumerate(persons,1))
+                if first['diff'].days == 0:
+                    embed.add_field(name=f"To Day is **{first['nickname']}** Birthday!! ",value=f"**`Claps to {first['nickname']}`**")
+                embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff'].days} `** days",inline=False)
+                
+            fmt = "\n".join(f"{j+(10*i)}. {sort[name]['nickname']} {sort[name]['birthday']} In {sort[name]['diff'].days} days" for j,name in enumerate(persons,1))
             embed.add_field(name="Upcoming",value=f"`{fmt}`",inline=False)
             for index in range(10):
                 try:

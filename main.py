@@ -7,7 +7,13 @@ from pymongo.mongo_client import MongoClient
 import wavelink
 
 intents = discord.Intents.all()
-LOCAL_LAVALINK = True
+LAVALINK_OPTIONS = {
+    "uselavalink":True,
+    "local":True
+}
+# uselavalink is set to True bot will try to connect to lavalink server
+# if local is enabled bot will try to connect to local lavalinkserver
+
 
 class csbot(commands.Bot):
     def __init__(self, **kwargs):
@@ -41,12 +47,13 @@ async def get_invites():
         })
 
 async def node_connect(): 
-    if LOCAL_LAVALINK:
-        node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=1) # Local Lavalink server
-    else:
-        node = wavelink.Node(uri ='http://n1.ll.darrennathanael.com:2269', password="glasshost1984") # prefered Lavalink server
+    if LAVALINK_OPTIONS['uselavalink']:
+        if LAVALINK_OPTIONS['local']:
+            node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=1) # Local Lavalink server
+        else:
+            node = wavelink.Node(uri ='http://23.88.73.88:15502', password="youshallnotpass") # prefered Lavalink server
 
-    await wavelink.Pool.connect(client=bot, nodes=[node])
+        await wavelink.Pool.connect(client=bot, nodes=[node])
 
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
