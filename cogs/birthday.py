@@ -75,7 +75,7 @@ class birthdayAPI(commands.Cog):
             if i == 0:
                 first = sort[list(sort)[0]]
                 if first['diff'].days == 0:
-                    embed.add_field(name=f"To Day is **{first['nickname']}** Birthday!! ",value=f"**`Claps to {first['nickname']}`**")
+                    embed.add_field(name=f"Today is **{first['nickname']}** Birthday!! ",value=f"**`Claps to {first['nickname']}`**")
                 embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff'].days} `** days",inline=False)
                 
             fmt = "\n".join(f"{j+(10*i)}. {sort[name]['nickname']} {sort[name]['birthday']} In {sort[name]['diff'].days} days" for j,name in enumerate(persons,1))
