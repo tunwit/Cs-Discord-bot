@@ -8,9 +8,10 @@ import wavelink
 
 intents = discord.Intents.all()
 LAVALINK_OPTIONS = {
-    "uselavalink":True,
+    "uselavalink":False,
     "local":True
 }
+
 # uselavalink is set to True bot will try to connect to lavalink server
 # if local is enabled bot will try to connect to local lavalinkserver
 

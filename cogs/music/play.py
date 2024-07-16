@@ -24,6 +24,7 @@ class playAPI(commands.Cog):
             return all([result.scheme, result.netloc])
         except ValueError:
             return False
+    
         
     async def statistic(self, search:str):
         search = search.replace(self.replacement, self.replacer)
@@ -75,12 +76,18 @@ class playAPI(commands.Cog):
             d = await interaction.followup.send(embed=embed)
             await asyncio.sleep(5)
             await d.delete()
+    
+    def is_game_running(func):
+        async def wrapper(*args):
+            print("gi")
+            return 1
 
+        return wrapper
+    
     @app_commands.command(name="play", description="play music")
     @app_commands.describe(search="Music name")
     async def play(self, interaction: discord.Interaction, search: str):
         await interaction.response.defer()
-
         if not interaction.user.voice:
             embed = embed_fail(interaction,"❌ You are not currently in voice channel")
             await interaction.followup.send(embed=embed,ephemeral=True)

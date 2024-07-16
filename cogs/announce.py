@@ -7,6 +7,9 @@ from cogs.music.eventmanager import eventManager
 from cogs.music.utility.check_before_play import check_before_play
 from cogs.music.ui.nowplaying import nowplaying
 from ui.embed_gen import embed_success
+from discord import ui
+import json
+from utility.check_is_manager import is_manager
 
 class announceAPI(commands.Cog):
     def __init__(self, bot ):
@@ -89,6 +92,7 @@ class announceAPI(commands.Cog):
         name="announce_file",
         description="make bot to announce message via format file",
     )
+    @app_commands.check(is_manager)
     async def announce_file(self, interaction: discord.Interaction,file:discord.Attachment):
         await interaction.response.send_message("sending",ephemeral=True)
         result =  await self.extract(file)
@@ -101,11 +105,12 @@ class announceAPI(commands.Cog):
             except:
                 await interaction.followup.send("something wrong with",ephemeral=True)
                 break
-    
+        
     @app_commands.command(
         name="announce_text",
         description="make bot to announce message via text",
     )
+    @app_commands.check(is_manager)
     async def announce_text(self, interaction: discord.Interaction,message:str):
         await interaction.response.send_message("sending",ephemeral=True)
         await interaction.channel.send(message)
@@ -114,10 +119,10 @@ class announceAPI(commands.Cog):
         name="announce_help",
         description="send format to your dm",
     )
+    @app_commands.check(is_manager)
     async def announce_help(self, interaction: discord.Interaction):
         await interaction.response.send_message("See help file in your DM",ephemeral=True)
         await interaction.user.send(file=discord.File(fp='format.txt',filename="format.txt"))
-        
 
 async def setup(bot):    
   await bot.add_cog(announceAPI(bot))  
