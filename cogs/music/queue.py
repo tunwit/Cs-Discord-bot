@@ -34,7 +34,7 @@ class queueAPI(commands.Cog):
                 fmt = "\n".join(f"**` {index+(10*i)}.{music}`**" for index,music in enumerate(items,1))
                 if i == 0:
                     embed = discord.Embed(
-                        title="There are `{more}` songs left in the queue".format(more=number - 1),
+                        title="There are `{more}` songs left in the queue".format(more=number),
                         color=0xFFFFFF,
                     )
                     embed.add_field(
