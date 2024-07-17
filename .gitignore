@@ -4,3 +4,4 @@ lavalink/
 test.py
 *.pyc
 *.jar
+signature/

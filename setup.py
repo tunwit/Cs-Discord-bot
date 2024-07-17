@@ -1,11 +1,35 @@
 from dotenv import load_dotenv
 import os
-
+import json
 load_dotenv(".env")
 
 TOKEN = os.getenv("TOKEN")
 APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
+
+if not os.path.exists('database'):#if not exists Create one
+    os.mkdir('database')
+
+if not os.path.exists('database/data.json'): 
+    data = {
+    "manager": [],
+    "role": {},
+    "trackvc": {
+        "channel": {}
+    },
+    "messagetrack": {
+        "channel": {}
+    },
+    "joinleave": {
+        "channel": {}
+    }
+    }
+    with open("database/data.json","w+") as f :
+        data = json.dump(data,f,indent=4)
+
+if not os.path.exists('signature'):
+    os.mkdir('signature')
+
 
 config = {
     "TOKEN":TOKEN,
