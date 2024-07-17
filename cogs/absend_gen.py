@@ -4,7 +4,7 @@ from discord import app_commands
 from discord import ui
 import json
 import os
-from discord.utils import MISSING
+from utility.get_signature import crop_text_from_image
 
 class registermodal(ui.Modal):
     name = ui.TextInput(label='ชื่อจริง',required=True)
@@ -69,8 +69,10 @@ class absendAPI(commands.Cog):
 
     @app_commands.command(name="upload_signature",description="Upload your Signature to use")
     async def upload_signature(self,interaction:discord.Interaction,nisit_id:int,file:discord.Attachment):
-        await interaction.response.send_message("Now implemented",ephemeral=True)
-
+        await interaction.response.defer()
+        image = crop_text_from_image(await file.read())
+        image.save(f"database/signature/{nisit_id}.png", format="PNG")
+        await interaction.followup.send(f'Your signature have been saved!!', ephemeral=True)
 
 async def setup(bot):    
   await bot.add_cog(absendAPI(bot))  

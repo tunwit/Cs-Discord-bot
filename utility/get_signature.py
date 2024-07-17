@@ -1,7 +1,8 @@
 from PIL import Image, ImageOps
+import io
 
-def crop_text_from_image(image_path, output_path):
-    image = Image.open(image_path)
+def crop_text_from_image(image_path) -> Image:
+    image = Image.open(io.BytesIO(image_path))
 
     grayscale_image = ImageOps.grayscale(image)
 
@@ -20,8 +21,6 @@ def crop_text_from_image(image_path, output_path):
         alpha_mask = cropped_gray.point(lambda p: 255 if p < threshold else 0)
 
         cropped_image.putalpha(alpha_mask)
-
-        cropped_image.save(output_path, format="PNG")
-        print(f"Cropped image with transparent background saved as {output_path}")
+        return cropped_image
     else:
-        print("No text found in the image.")
+        return None
