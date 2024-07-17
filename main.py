@@ -8,7 +8,7 @@ import wavelink
 
 intents = discord.Intents.all()
 LAVALINK_OPTIONS = {
-    "uselavalink":True,
+    "uselavalink":False,
     "local":True
 }
 

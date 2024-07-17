@@ -22,13 +22,14 @@ if not os.path.exists('database/data.json'):
     },
     "joinleave": {
         "channel": {}
-    }
+    },
+    "absend_gen":{}
     }
     with open("database/data.json","w+") as f :
         data = json.dump(data,f,indent=4)
 
-if not os.path.exists('signature'):
-    os.mkdir('signature')
+if not os.path.exists('database/signature'):
+    os.mkdir('database/signature')
 
 
 config = {

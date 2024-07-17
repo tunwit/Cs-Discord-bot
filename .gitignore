@@ -5,3 +5,4 @@ test.py
 *.pyc
 *.jar
 signature/
+data.json
