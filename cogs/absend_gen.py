@@ -13,8 +13,9 @@ class registermodal(ui.Modal):
     address = ui.TextInput(label='ที่อยู่',required=True)
     phone = ui.TextInput(label='โทรศัพท์',required=True)
 
-    def __init__(self, nisit_id) -> None:
+    def __init__(self, nisit_id,file) -> None:
         self.nisit_id = nisit_id
+        self.file = file
         super().__init__(title='Absend generator Registration')
 
     async def on_submit(self, interaction: discord.Interaction):
@@ -29,10 +30,12 @@ class registermodal(ui.Modal):
                 "phone":self.phone.value
             }
         })
-        with open('database\\data.json', 'w') as database:
-                json.dump(data, database,indent=4)
+        with open('database\\data.json', 'w',encoding='utf8') as database:
+                json.dump(data, database,indent=4,ensure_ascii=False)
 
-        await interaction.response.send_message(f'Thanks for your response, {self.name}!', ephemeral=True)
+        image = crop_text_from_image(await self.file.read())
+        image.save(f"database/signature/{self.nisit_id}.png", format="PNG")
+        await interaction.response.send_message(f'Thanks for your registration, {interaction.user.name}!', ephemeral=True)
 
 class absendform(ui.Modal):
     professsor = ui.TextInput(label='อาจารย์',required=True)
@@ -59,20 +62,18 @@ class absendAPI(commands.Cog):
     async def absend(self,interaction:discord.Interaction,nisit_id:int):
         with open('database\\data.json','r') as database:
             data = json.load(database) 
-        if str(nisit_id) in list(data["absend_gen"]):
-            modal = absendform(nisit_id = nisit_id)
-            await interaction.response.send_modal(modal)
-        else:
-            modal = registermodal(nisit_id = nisit_id)
-            await interaction.response.send_modal(modal)
+        if str(nisit_id) not in list(data["absend_gen"]):
+            await interaction.response.send_message("You are not registed use `/absend_register`",ephemeral=True)
+            return
+        modal = absendform(nisit_id = nisit_id)
+        await interaction.response.send_modal(modal)
 
 
-    @app_commands.command(name="upload_signature",description="Upload your Signature to use")
-    async def upload_signature(self,interaction:discord.Interaction,nisit_id:int,file:discord.Attachment):
-        await interaction.response.defer()
-        image = crop_text_from_image(await file.read())
-        image.save(f"database/signature/{nisit_id}.png", format="PNG")
-        await interaction.followup.send(f'Your signature have been saved!!', ephemeral=True)
+    @app_commands.command(name="absend_register",description="Register your personal infomation")
+    @app_commands.describe(signature="Your signature sign file written in white background")
+    async def absend_register(self,interaction:discord.Interaction,nisit_id:int,signature:discord.Attachment):
+        modal = registermodal(nisit_id = nisit_id,file=signature)
+        await interaction.response.send_modal(modal)
 
 async def setup(bot):    
   await bot.add_cog(absendAPI(bot))  
