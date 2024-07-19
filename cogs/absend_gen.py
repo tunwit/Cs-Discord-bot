@@ -133,7 +133,8 @@ class absendform(ui.Modal):
         with io.BytesIO() as byte:
             form.save(byte,format="PNG")
             byte.seek(0)
-            await interaction.response.send_message(file=discord.File(byte,filename=str(self.nisit_id)+".png"))
+            await interaction.response.send_message("Succesfully send you an absent form `see in your DM.`",ephemeral=True)
+            await interaction.user.send(file=discord.File(byte,filename=str(self.nisit_id)+".png"))
 
 class absendAPI(commands.Cog):
     def __init__(self, bot ):
@@ -144,7 +145,7 @@ class absendAPI(commands.Cog):
         with open('database\\data.json','r') as database:
             data = json.load(database) 
         if str(nisit_id) not in list(data["absend_gen"]):
-            await interaction.response.send_message("You are not registed use `/absend_register`",ephemeral=True)
+            await interaction.response.send_message("You are not registered use `/absend_register`",ephemeral=True)
             return
         modal = absendform(nisit_id = nisit_id)
         await interaction.response.send_modal(modal)
@@ -154,6 +155,11 @@ class absendAPI(commands.Cog):
     @app_commands.describe(signature="Your signature sign file written in white background")
     async def absend_register(self,interaction:discord.Interaction,nisit_id:int,signature:discord.Attachment):
         modal = registermodal(nisit_id = nisit_id,file=signature)
+        with open('database\\data.json','r') as database:
+            data = json.load(database) 
+        if str(nisit_id) in list(data["absend_gen"]):
+            await interaction.response.send_message("You are already registered if you want to edit please contact developer",ephemeral=True)
+            return
         await interaction.response.send_modal(modal)
 
 async def setup(bot):    
