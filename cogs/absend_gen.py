@@ -5,6 +5,80 @@ from discord import ui
 import json
 import os
 from utility.get_signature import crop_text_from_image
+from textwrap3 import wrap
+from PIL import Image
+from PIL import ImageFont
+from PIL import ImageDraw 
+import PIL
+from datetime import datetime
+import io
+
+font_path = r"utility\absent\THSarabunNew.ttf"
+month = {
+    1:"มกราคม",
+    2:"กุมภาพันธ์",
+    3:"มีนาคม",
+    4:"เมษายน",
+    5:"พฤษภาคม",
+    6:"มิถุนายน",
+    7:"กรกฎาคม",
+    8:"สิงหาคม",
+    9:"กันยายน",
+    10:"ตุลาคม",
+    11:"พฤศจิกายน",
+    12:"ธันวาคม",
+}
+def check_lenght(word,startpoint,endpoint):
+        font = ImageFont.truetype(font_path, 35)
+        right = startpoint + font.getlength(word)
+        i = 40
+        while right > endpoint:
+            font = ImageFont.truetype(font_path, i)
+            i-=1
+            right = startpoint + font.getlength(word)
+        return font
+
+def create_form(nisit_data:dict):
+    black = (0,0,0)
+    form = Image.open(r"utility\absent\absentform_demo.jpg")
+    draw = ImageDraw.Draw(form)
+    font = ImageFont.truetype(font_path, 35)
+    date = datetime.now()
+    draw.text((645, 485),str(date.day),black,font=font,anchor="mm")
+    draw.text((850, 485),month[date.month],black,font=font,anchor="mm")
+    draw.text((1080, 485),str(date.year+543),black,font=font,anchor="mm")
+
+    draw.text((200, 600),nisit_data["professsor"],black,font=font)
+    draw.text((580, 690),nisit_data["nisit"]["name"],black,font=font)
+    draw.text((270, 740),nisit_data["nisit_id"],black,font=font)
+    draw.text((580, 740),"1",black,font=font)
+    draw.text((730, 740),nisit_data["nisit"]["faculty"],black,font=font)
+    draw.text((240, 785),nisit_data["nisit"]["branch"],black,font=font)
+    address = nisit_data["nisit"]["address"]
+    font_s = check_lenght(address,100,700)
+    draw.text((410, 855),address,black,font=font_s,anchor="mm")
+    draw.text((810, 830),nisit_data["nisit"]["phone"],black,font=font)
+
+    mesage = wrap(f'\t{nisit_data["message"]}',100)
+    offet = 970
+    for line in mesage:
+        draw.text((110, offet),line,black,font=font)
+        offet += 45
+
+    signature = Image.open(f"database\\signature\\{nisit_data['nisit_id']}.png")
+    if signature.mode == 'RGBA':
+        alpha = signature.split()[3]
+        bgmask = alpha.point(lambda x: 255-x)
+        signature = signature.convert('RGB')
+        signature.paste((255,255,255), None, bgmask)
+
+    width = 150
+    signature = signature.resize((width,int((width / signature.size[0]) * signature.size[1])),Image.LANCZOS)
+    signature = signature.convert('RGBA')
+
+    form.paste(signature, (750,1300))
+    draw.text((750, 1385),nisit_data["nisit"]["name"],black,font=font)    
+    return form
 
 class registermodal(ui.Modal):
     name = ui.TextInput(label='ชื่อจริง',required=True)
@@ -49,10 +123,17 @@ class absendform(ui.Modal):
         with open('database\\data.json','r') as database:
             data = json.load(database) 
         
-        if not os.path.exists(f'database/signature/{self.nisit_id}.png'):
-            await interaction.response.send_message(f"Don't have your signature uploaded please Upload your signature using `/upload_signature`", ephemeral=True)
-            return
-        await interaction.response.send_message(f' {data["absend_gen"][str(self.nisit_id)]}!', ephemeral=True)
+        data = {
+            "nisit":data["absend_gen"][str(self.nisit_id)],
+            "nisit_id":str(self.nisit_id),
+            "professsor":self.professsor.value,
+            "message":self.message.value
+        }
+        form = create_form(data)
+        with io.BytesIO() as byte:
+            form.save(byte,format="PNG")
+            byte.seek(0)
+            await interaction.response.send_message(file=discord.File(byte,filename=str(self.nisit_id)+".png"))
 
 class absendAPI(commands.Cog):
     def __init__(self, bot ):
