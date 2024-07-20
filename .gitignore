@@ -5,4 +5,5 @@ test.py
 *.pyc
 *.jar
 signature/
-data.json
+database/
+database/data.json
