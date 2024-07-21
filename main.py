@@ -13,7 +13,7 @@ LAVALINK_OPTIONS = {
 }
 
 # uselavalink is set to True bot will try to connect to lavalink server
-# if local is enabled bot will try to connect to local lavalinkserver
+# if local is enabled bot will try to connect to local lavalink server
 
 
 class csbot(commands.Bot):

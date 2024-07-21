@@ -40,7 +40,7 @@ def check_lenght(word,startpoint,endpoint):
 
 def create_form(nisit_data:dict):
     black = (0,0,0)
-    form = Image.open(r"utility\absent\absentform_demo.jpg")
+    form = Image.open(r"utility\absent\absentform.jpg")
     draw = ImageDraw.Draw(form)
     font = ImageFont.truetype(font_path, 35)
     date = datetime.now()
@@ -50,7 +50,7 @@ def create_form(nisit_data:dict):
 
     draw.text((200, 600),nisit_data["professsor"],black,font=font)
     draw.text((580, 690),nisit_data["nisit"]["name"],black,font=font)
-    draw.text((270, 740),nisit_data["nisit_id"],black,font=font)
+    draw.text((270, 740),nisit_data["nisit"]["nisit_id"],black,font=font)
     draw.text((580, 740),"1",black,font=font)
     draw.text((730, 740),nisit_data["nisit"]["faculty"],black,font=font)
     draw.text((240, 785),nisit_data["nisit"]["branch"],black,font=font)
@@ -65,7 +65,7 @@ def create_form(nisit_data:dict):
         draw.text((110, offet),line,black,font=font)
         offet += 45
 
-    signature = Image.open(f"database\\signature\\{nisit_data['nisit_id']}.png")
+    signature = Image.open(f"database\\signature\\{nisit_data['nisit']['nisit_id']}.png")
     if signature.mode == 'RGBA':
         alpha = signature.split()[3]
         bgmask = alpha.point(lambda x: 255-x)
@@ -96,7 +96,8 @@ class registermodal(ui.Modal):
         with open('database\\data.json','r') as database:
             data = json.load(database) 
         data["absend_gen"].update({
-            self.nisit_id:{
+            str(interaction.user.id):{
+                "nisit_id":str(self.nisit_id),
                 "name":self.name.value,
                 "branch":self.branch.value,
                 "faculty":self.faculty.value,
@@ -115,8 +116,7 @@ class absendform(ui.Modal):
     professsor = ui.TextInput(label='อาจารย์',required=True)
     message = ui.TextInput(label='ข้อความ', style=discord.TextStyle.paragraph,required=True)
 
-    def __init__(self, nisit_id) -> None:
-        self.nisit_id = nisit_id
+    def __init__(self) -> None:
         super().__init__(title='Absend Form')
 
     async def on_submit(self, interaction: discord.Interaction):
@@ -124,30 +124,33 @@ class absendform(ui.Modal):
             data = json.load(database) 
         
         data = {
-            "nisit":data["absend_gen"][str(self.nisit_id)],
-            "nisit_id":str(self.nisit_id),
+            "nisit":data["absend_gen"][str(interaction.user.id)],
             "professsor":self.professsor.value,
             "message":self.message.value
         }
-        form = create_form(data)
+        try:
+            form = create_form(data)
+        except:
+            await interaction.response.send_message("something went wrong please contact developer",ephemeral=True)
+            return
         with io.BytesIO() as byte:
             form.save(byte,format="PNG")
             byte.seek(0)
             await interaction.response.send_message("Succesfully send you an absent form `see in your DM.`",ephemeral=True)
-            await interaction.user.send(file=discord.File(byte,filename=str(self.nisit_id)+".png"))
+            await interaction.user.send(file=discord.File(byte,filename=str(data["nisit"]["nisit_id"])+".png"))
 
 class absendAPI(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
 
     @app_commands.command(name="absend_generator",description="Generate absend form")
-    async def absend(self,interaction:discord.Interaction,nisit_id:int):
+    async def absend(self,interaction:discord.Interaction):
         with open('database\\data.json','r') as database:
             data = json.load(database) 
-        if str(nisit_id) not in list(data["absend_gen"]):
+        if str(interaction.user.id) not in list(data["absend_gen"]):
             await interaction.response.send_message("You are not registered use `/absend_register`",ephemeral=True)
             return
-        modal = absendform(nisit_id = nisit_id)
+        modal = absendform()
         await interaction.response.send_modal(modal)
 
 
@@ -157,7 +160,7 @@ class absendAPI(commands.Cog):
         modal = registermodal(nisit_id = nisit_id,file=signature)
         with open('database\\data.json','r') as database:
             data = json.load(database) 
-        if str(nisit_id) in list(data["absend_gen"]):
+        if str(interaction.user.id) in list(data["absend_gen"]):
             await interaction.response.send_message("You are already registered if you want to edit please contact developer",ephemeral=True)
             return
         await interaction.response.send_modal(modal)
