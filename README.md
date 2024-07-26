@@ -13,3 +13,9 @@ pip install -r requirements.txt
 
 2. get discord key for testing contact us in สาขาคนรักแมว for file .env
 3. run main.py
+
+## requirements
+
+1. JDK v17 ++
+2. FFMPEG 
+
