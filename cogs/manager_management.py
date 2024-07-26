@@ -23,7 +23,7 @@ class managerAPI(commands.Cog):
     @app_commands.check(is_manager)
     async def manager(self,interaction:discord.Interaction,user:discord.User,method:int):
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database)
         if method:
             data["manager"].append(user.id)
@@ -31,7 +31,7 @@ class managerAPI(commands.Cog):
         else:
             data["manager"].remove(user.id)
             await interaction.followup.send(f"`{user.id}` is Removed")
-        with open('database\\data.json', 'w') as database:
+        with open('database/data.json', 'w') as database:
             json.dump(data, database,indent=4)
     
 
@@ -45,7 +45,7 @@ class managerAPI(commands.Cog):
     @app_commands.check(is_manager)
     async def manager_id(self,interaction:discord.Interaction,user_id:int,method:int):
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data:list = json.load(database)
         if method:
             data["manager"].append(user_id)
@@ -53,7 +53,7 @@ class managerAPI(commands.Cog):
         else:
             data["manager"].remove(user_id)
             await interaction.followup.send(f"`{user_id}` is Removed")
-        with open('database\\data.json', 'w') as database:
+        with open('database/data.json', 'w') as database:
             json.dump(data, database,indent=4)
 
         

@@ -15,7 +15,7 @@ class trackAPI(commands.Cog):
   Choice(name = "OFF",value="OFF"),])
     async def track(self,interaction:discord.Interaction,channel:discord.TextChannel,status:str): 
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         if status == 'ON':
             if str(interaction.guild.id) in list(data["trackvc"]["channel"]):
@@ -24,7 +24,7 @@ class trackAPI(commands.Cog):
                 interaction.guild.id:channel.id
             })
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"Set <#{channel.id}> to Track-vc",ephemeral=True)
         else:
@@ -32,13 +32,13 @@ class trackAPI(commands.Cog):
                 if channel.id == data["trackvc"]["channel"][str(interaction.guild.id)]:
                     data["trackvc"]["channel"].pop(str(interaction.guild.id))
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"<#{channel.id}> No longer Track-vc",ephemeral=True)
 
     @commands.Cog.listener()
     async def on_voice_state_update(self, member:discord.Member, before, after): 
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
                 data = json.load(database) 
         data = data["trackvc"]["channel"]
         if not data:

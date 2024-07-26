@@ -93,7 +93,7 @@ class registermodal(ui.Modal):
         super().__init__(title='Absend generator Registration')
 
     async def on_submit(self, interaction: discord.Interaction):
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         data["absend_gen"].update({
             str(interaction.user.id):{
@@ -105,7 +105,7 @@ class registermodal(ui.Modal):
                 "phone":self.phone.value
             }
         })
-        with open('database\\data.json', 'w',encoding='utf8') as database:
+        with open('database/data.json', 'w',encoding='utf8') as database:
                 json.dump(data, database,indent=4,ensure_ascii=False)
 
         image = crop_text_from_image(await self.file.read())
@@ -120,7 +120,7 @@ class absendform(ui.Modal):
         super().__init__(title='Absend Form')
 
     async def on_submit(self, interaction: discord.Interaction):
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         
         data = {
@@ -145,7 +145,7 @@ class absendAPI(commands.Cog):
 
     @app_commands.command(name="absend_generator",description="Generate absend form")
     async def absend(self,interaction:discord.Interaction):
-        with open('database\\data.json','r') as database:
+        with open('database//data.json','r') as database:
             data = json.load(database) 
         if str(interaction.user.id) not in list(data["absend_gen"]):
             await interaction.response.send_message("You are not registered use `/absend_register`",ephemeral=True)
@@ -158,7 +158,7 @@ class absendAPI(commands.Cog):
     @app_commands.describe(signature="Your signature sign file written in white background")
     async def absend_register(self,interaction:discord.Interaction,nisit_id:int,signature:discord.Attachment):
         modal = registermodal(nisit_id = nisit_id,file=signature)
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         if str(interaction.user.id) in list(data["absend_gen"]):
             await interaction.response.send_message("You are already registered if you want to edit please contact developer",ephemeral=True)

@@ -15,7 +15,7 @@ class messageAPI(commands.Cog):
   Choice(name = "OFF",value="OFF"),])
     async def message(self,interaction:discord.Interaction,channel:discord.TextChannel,status:str): 
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         if status == 'ON':
             if str(interaction.guild.id) in list(data["messagetrack"]["channel"]):
@@ -24,7 +24,7 @@ class messageAPI(commands.Cog):
                 interaction.guild.id:channel.id
             })
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"Set <#{channel.id}> to Track-message",ephemeral=True)
         else:
@@ -32,13 +32,13 @@ class messageAPI(commands.Cog):
                 if channel.id == data["messagetrack"]["channel"][str(interaction.guild.id)]:
                     data["messagetrack"]["channel"].pop(str(interaction.guild.id))
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"<#{channel.id}> No longer Track-message",ephemeral=True)
 
     @commands.Cog.listener()
     async def on_raw_message_delete(self,payload:discord.RawMessageDeleteEvent):
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
                 data = json.load(database) 
         data = data["messagetrack"]["channel"]
         if not data:
@@ -75,7 +75,7 @@ class messageAPI(commands.Cog):
     
     @commands.Cog.listener()
     async def on_raw_message_edit(self,payload:discord.RawMessageUpdateEvent):
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
                 data = json.load(database) 
         data = data["messagetrack"]["channel"]
         if not data:
