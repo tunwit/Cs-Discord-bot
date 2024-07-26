@@ -9,3 +9,4 @@ database/
 database/data.json
 start_lavalink.sh
 start_lavalink.bat
+venv/
