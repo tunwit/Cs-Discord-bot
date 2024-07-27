@@ -20,7 +20,7 @@ class joinleaveAPI(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self,member:discord.Member):
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
                 data = json.load(database) 
         data = data["joinleave"]["channel"]
         if member == self.bot.user:
@@ -53,7 +53,7 @@ class joinleaveAPI(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_remove(self,member:discord.Member):   
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
                 data = json.load(database) 
         data = data["joinleave"]["channel"]
         if member == self.bot.user:
@@ -82,7 +82,7 @@ class joinleaveAPI(commands.Cog):
   Choice(name = "OFF",value="OFF"),])
     async def joinleave(self,interaction:discord.Interaction,channel:discord.TextChannel,status:str): 
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database) 
         if status == 'ON':
             if str(interaction.guild.id) in list(data["joinleave"]["channel"]):
@@ -91,7 +91,7 @@ class joinleaveAPI(commands.Cog):
                 interaction.guild.id:channel.id
             })
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"Set <#{channel.id}> to notify join/leave",ephemeral=True)
         else:
@@ -99,7 +99,7 @@ class joinleaveAPI(commands.Cog):
                 if channel.id == data["joinleave"]["channel"][str(interaction.guild.id)]:
                     data["joinleave"]["channel"].pop(str(interaction.guild.id))
 
-            with open('database\\data.json', 'w') as database:
+            with open('database/data.json', 'w') as database:
                 json.dump(data, database,indent=4)
             await interaction.followup.send(f"<#{channel.id}> No longer notify join/leave",ephemeral=True)
 

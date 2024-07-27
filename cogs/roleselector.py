@@ -21,12 +21,12 @@ class role(commands.Cog):
     @app_commands.command(name="role",description="role selecter")
     async def role(self,interaction:discord.Interaction,message:str,standard:discord.Role,pay:discord.Role) :
         await interaction.response.defer()
-        with open('database\\data.json','r') as database:
+        with open('database/data.json','r') as database:
             data = json.load(database)
             data["role"]["std_role_id"] = standard.id
             data["role"]["spe_role_id"] = pay.id
 
-        with open('database\\data.json', 'w') as database:
+        with open('database/data.json', 'w') as database:
             json.dump(data, database,indent=4)
 
         await interaction.followup.send(message,view=button_())
@@ -37,7 +37,7 @@ class role(commands.Cog):
             custom_id = interaction.data.get('custom_id')
             if "role_id" in custom_id:
                 await interaction.response.defer()
-                with open('database\\data.json','r') as database:
+                with open('database/data.json','r') as database:
                     data = json.load(database) 
                 target_role = interaction.guild.get_role(data["role"][custom_id])
                 if not interaction.user.get_role(data["role"][custom_id]):
