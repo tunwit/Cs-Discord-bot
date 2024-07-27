@@ -12,7 +12,7 @@ APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
 
 LAVALINK_OPTIONS = {
-    "uselavalink":True,
+    "uselavalink":False,
     "local":True
 }
 
