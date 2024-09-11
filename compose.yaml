@@ -1,0 +1,8 @@
+version: "3.1"
+services:
+  cs_bot:
+    image: cs_bot
+    environment:
+      TOKEN: ""
+      APPLICATION_ID: ""
+      MONGO: ""
