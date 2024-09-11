@@ -151,7 +151,9 @@ class playAPI(commands.Cog):
             await vc.queue.put_wait(track)
             await vc.set_volume(70)
             await vc.play(await vc.queue.get_wait(),populate=True)
-            print(f"playing {vc.current} requested by {vc.current.extras.requester}")
+            try:
+                print(f"playing {vc.current} requested by {vc.current.extras.requester}")
+            except:pass
         else:
             await vc.queue.put_wait(track)
             print(f'adding {track}')
@@ -165,9 +167,10 @@ class playAPI(commands.Cog):
         current: str,
     ) -> List[app_commands.Choice[str]]:
         database = self.bot.mango["searchstatistic2"]
-        source = database.find().sort("times", -1).limit(3)
         if len(current) > 0:
             source = database.find({"music": {"$regex": current,'$options' : 'i'}}).limit(25)
+        else:
+            source = database.find().sort("times", -1).limit(3)
         return [app_commands.Choice(name=l["music"].replace(self.replacer, self.replacement),value=l["music"].replace(self.replacer, self.replacement))for l in source]
 async def setup(bot):    
   await bot.add_cog(playAPI(bot))  
