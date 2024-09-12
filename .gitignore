@@ -1,6 +1,5 @@
 .env
 __pycache__/
-lavalink/
 test.py
 *.pyc
 *.jar

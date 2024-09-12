@@ -1,0 +1,53 @@
+2024-09-12T23:22:02.375+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.7 using Java 22.0.2 with PID 84834 (/Users/littlebirdd/Desktop/project/csbot/src/lavalink/Lavalink.jar started by littlebirdd in /Users/littlebirdd/Desktop/project/csbot/src/lavalink)
+2024-09-12T23:22:02.423+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T23:22:02.875+07:00  INFO 84834 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Downloading https://maven.lavalink.dev/releases/com/github/topi314/lavasrc/lavasrc-plugin/4.2.0/lavasrc-plugin-4.2.0.jar
+2024-09-12T23:22:05.528+07:00  INFO 84834 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Downloading https://maven.lavalink.dev/releases/dev/lavalink/youtube/youtube-plugin/1.5.2/youtube-plugin-1.5.2.jar
+2024-09-12T23:22:06.281+07:00  INFO 84834 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded lavasrc-plugin-4.2.0.jar (131 classes)
+2024-09-12T23:22:06.285+07:00  INFO 84834 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.5.2.jar (10 classes)
+2024-09-12T23:22:06.396+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 4.238 seconds (process running for 4.622)
+2024-09-12T23:22:06.430+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        4.0.7
+	Build time:     08.07.2024 22:14:17 UTC
+	Branch          HEAD
+	Commit:         93102f8
+	Commit time:    08.07.2024 21:49:02 UTC
+	JVM:            22.0.2
+	Lavaplayer      2.2.1
+
+2024-09-12T23:22:06.438+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2024-09-12T23:22:06.763+07:00  WARN 84834 --- [Lavalink] [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2024-09-12T23:22:06.774+07:00  INFO 84834 --- [Lavalink] [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2024-09-12T23:22:06.775+07:00  INFO 84834 --- [Lavalink] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 334 ms
+2024-09-12T23:22:06.817+07:00  INFO 84834 --- [Lavalink] [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Loading LavaSrc plugin...
+2024-09-12T23:22:06.833+07:00  INFO 84834 --- [Lavalink] [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Registering Youtube Source audio source manager...
+2024-09-12T23:22:07.471+07:00  INFO 84834 --- [Lavalink] [main] dev.lavalink.youtube.plugin.PluginInfo   : ********************************************
+YOUTUBE-SOURCE VERSION 1.7.2 AVAILABLE
+https://github.com/lavalink-devs/youtube-source/releases/tag/1.7.2
+Update to ensure the YouTube source remains operational!
+********************************************
+2024-09-12T23:22:07.494+07:00  INFO 84834 --- [Lavalink] [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2024-09-12T23:22:07.685+07:00  INFO 84834 --- [Lavalink] [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Registering Spotify audio source manager...
+2024-09-12T23:22:07.686+07:00  WARN 84834 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : youtubeConfig missing or 'clients' was not specified, default values will be used.
+2024-09-12T23:22:07.707+07:00  INFO 84834 --- [Lavalink] [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, WEB, ANDROID_TESTSUITE, TVHTML5_SIMPLY_EMBEDDED_PLAYER 
+2024-09-12T23:22:07.770+07:00  INFO 84834 --- [Lavalink] [main] l.server.config.KoeConfiguration         : OS: DARWIN, Arch: ARMv8_64
+2024-09-12T23:22:07.770+07:00  INFO 84834 --- [Lavalink] [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2024-09-12T23:22:07.772+07:00  INFO 84834 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2024-09-12T23:22:08.472+07:00  INFO 84834 --- [Lavalink] [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2024-09-12T23:22:08.531+07:00  WARN 84834 --- [Lavalink] [main] l.server.config.SentryConfiguration      : Turning off sentry
+2024-09-12T23:22:08.661+07:00  INFO 84834 --- [Lavalink] [main] io.undertow                              : starting server: Undertow - 2.3.13.Final
+2024-09-12T23:22:08.666+07:00  INFO 84834 --- [Lavalink] [main] org.xnio                                 : XNIO version 3.8.8.Final
+2024-09-12T23:22:08.672+07:00  INFO 84834 --- [Lavalink] [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2024-09-12T23:22:08.726+07:00  INFO 84834 --- [Lavalink] [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2024-09-12T23:22:08.784+07:00  INFO 84834 --- [Lavalink] [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port 2333 (http) with context path '/'
+2024-09-12T23:22:08.786+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 2.386 seconds (process running for 7.012)
+2024-09-12T23:22:08.786+07:00  INFO 84834 --- [Lavalink] [main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+2024-09-12T23:22:13.599+07:00  INFO 84834 --- [Lavalink] [SpringApplicationShutdownHook] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2024-09-12T23:22:13.611+07:00  INFO 84834 --- [Lavalink] [SpringApplicationShutdownHook] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
