@@ -14,7 +14,7 @@ class birthdayAPI(commands.Cog):
 
     async def getdata(self):
         html = requests.get('https://docs.google.com/spreadsheets/d/1KVJLEbZzuSDzwCVVm_5r0e9JEi1Kppr8l3r1Z2Qk44E/gviz/tq?tqx=out:html&tq&gid=1').text
-        soup = BeautifulSoup(html, 'lxml')
+        soup = BeautifulSoup(html, 'html.parser')
         raw = soup.find_all('table')[0]
         rows = raw.find_all('tr')
         result = {}

@@ -45,6 +45,7 @@ async def get_invites():
 
 async def node_connect(): 
     if config["LAVALINK_OPTIONS"]['uselavalink']:
+        print("Connectiong to Lavalink")
         if config["LAVALINK_OPTIONS"]['local']:
             node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=1) # Local Lavalink server
         else:
