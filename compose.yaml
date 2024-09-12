@@ -1,10 +1,14 @@
 services:
   cs_bot:
     image: cs_bot
+    networks:
+      - lavalink
     environment:
-      TOKEN: ""
-      APPLICATION_ID: ""
-      MONGO: ""
+      TOKEN: ${TOKEN}
+      APPLICATION_ID: ${APPLICATION_ID}
+      MONGO: ${MONGO}
+      PRODUCTION: "True"
+      PYTHONUNBUFFERED: 1
   lavalink:
     # pin the image version to Lavalink v4
     image: ghcr.io/lavalink-devs/lavalink:4
@@ -30,7 +34,10 @@ services:
     ports:
       # you only need this if you want to make your lavalink accessible from outside of containers
       - "2333:2333"
+
 networks:
   # create a lavalink network you can add other containers to, to give them access to Lavalink
   lavalink:
     name: lavalink
+  
+  
