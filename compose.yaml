@@ -4,7 +4,7 @@ services:
     networks:
       - lavalink
     volumes:
-      - "./src/database:./src/database"
+      - "./src/database:/src/database"
     depends_on:
       - lavalink
     restart: unless-stopped

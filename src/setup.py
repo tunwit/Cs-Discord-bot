@@ -13,7 +13,7 @@ MONGO = os.getenv("MONGO")
 
 LAVALINK_OPTIONS = {
     "uselavalink":True,
-    "local":False
+    "local":True
 }
 
 if not os.path.exists('database'):#if not exists Create one
