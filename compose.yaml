@@ -3,6 +3,8 @@ services:
     image: cs_bot
     networks:
       - lavalink
+    volumes:
+      - "./src/database:./src/database"
     environment:
       TOKEN: ${TOKEN}
       APPLICATION_ID: ${APPLICATION_ID}
