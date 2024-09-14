@@ -6,8 +6,7 @@ services:
     volumes:
       - "./src/database:/src/database"
     depends_on:
-      lavalink:
-        condition: service_healthy
+      - lavalink
     restart: unless-stopped
     environment:
       TOKEN: ${TOKEN}
