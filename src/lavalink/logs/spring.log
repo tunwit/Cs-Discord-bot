@@ -1,0 +1,2 @@
+2024-09-15T02:39:22.564+07:00  INFO 10084 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.7 using Java 18.0.1.1 with PID 10084 (D:\project\csbot\src\lavalink\Lavalink.jar started by Tunwit in D:\project\csbot\src\lavalink)
+2024-09-15T02:39:22.569+07:00  INFO 10084 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"

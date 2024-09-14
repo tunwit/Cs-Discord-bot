@@ -12,8 +12,8 @@ APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
 PRODUCTION = os.getenv("PRODUCTION")
 LAVALINK_OPTIONS = {
-    "uselavalink":True if os.getenv("USELAVALINK") else False,
-    "local":True if os.getenv("LOCALLAVALINK") else False
+    "uselavalink":True if os.getenv("USELAVALINK") =="True" else False,
+    "local":True if os.getenv("LOCALLAVALINK") =="True" else False
 }
 
 if not os.path.exists('database'):#if not exists Create one
