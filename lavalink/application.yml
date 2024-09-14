@@ -29,6 +29,8 @@ lavalink:
       repository: "https://maven.lavalink.dev/releases" # this is optional for lavalink v4.0.0-beta.5 or greater
       snapshot: false
 
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.5.2"
+      snapshot: false # Set to true if you want to use a
   server:
     password: "youshallnotpass"
     channelCount: 16

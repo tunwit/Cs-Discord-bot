@@ -10,7 +10,7 @@ load_dotenv(".env")
 TOKEN = os.getenv("TOKEN")
 APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
-
+PRODUCTION = os.getenv("PRODUCTION")
 LAVALINK_OPTIONS = {
     "uselavalink":True,
     "local":True
@@ -40,10 +40,9 @@ if not os.path.exists('database/data.json'):
 if not os.path.exists('database/signature'):
     os.mkdir('database/signature')
 
-if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"]:
+if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION == "false":
     if not os.path.exists(f"lavalink"):
         os.makedirs(f"lavalink")
-    print("using Local Lavalink")
     if not os.path.isfile("lavalink/Lavalink.jar"):
         try:
             print('Downloading Lavalink.jar.')
