@@ -12,8 +12,8 @@ APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
 PRODUCTION = os.getenv("PRODUCTION")
 LAVALINK_OPTIONS = {
-    "uselavalink":True,
-    "local":True
+    "uselavalink":bool(os.getenv("USELAVALINK")),
+    "local":bool(os.getenv("LOCALLAVALINK"))
 }
 
 if not os.path.exists('database'):#if not exists Create one
@@ -40,7 +40,7 @@ if not os.path.exists('database/data.json'):
 if not os.path.exists('database/signature'):
     os.mkdir('database/signature')
 
-if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION == "false":
+if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION == "False":
     if not os.path.exists(f"lavalink"):
         os.makedirs(f"lavalink")
     if not os.path.isfile("lavalink/Lavalink.jar"):

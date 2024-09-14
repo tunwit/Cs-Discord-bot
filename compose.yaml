@@ -13,6 +13,8 @@ services:
       APPLICATION_ID: ${APPLICATION_ID}
       MONGO: ${MONGO}
       PRODUCTION: "True"
+      USELAVALINK: "True"
+      LOCALLAVALINK : "False"
       PYTHONUNBUFFERED: 1
   lavalink:
     # pin the image version to Lavalink v4
