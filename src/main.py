@@ -5,7 +5,8 @@ from dotenv import load_dotenv
 from setup import config
 from pymongo.mongo_client import MongoClient
 import wavelink
-
+import itertools
+import asyncio
 intents = discord.Intents.all()
 
 # uselavalink is set to True bot will try to connect to lavalink server
@@ -57,10 +58,23 @@ async def node_connect():
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
     print(f"Wavelink {node.node.identifier} connected")
 
+@tasks.loop()
+async def change_ac():
+    statuses = [
+        "Your heart ♥",
+        "With lovely cat",
+        f"Now is in 【{len(bot.guilds)}】 servers",
+    ]
+    for status in itertools.cycle(statuses):
+        activity = discord.Game(name=status)
+        await bot.change_presence(status=discord.Status.online, activity=activity)
+        await asyncio.sleep(15)
+
 @bot.event
 async def on_ready():
     await get_invites()
     await node_connect()
+    change_ac.start()
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
