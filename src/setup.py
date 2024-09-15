@@ -15,31 +15,6 @@ LAVALINK_OPTIONS = {
     "uselavalink":True if os.getenv("USELAVALINK") =="True" else False,
     "local":True if os.getenv("LOCALLAVALINK") =="True" else False
 }
-
-if not os.path.exists('database'):#if not exists Create one
-    os.mkdir('database')
-
-if not os.path.exists('database/data.json'): 
-    data = {
-    "manager": [],
-    "role": {},
-    "trackvc": {
-        "channel": {}
-    },
-    "messagetrack": {
-        "channel": {}
-    },
-    "joinleave": {
-        "channel": {}
-    },
-    "absend_gen":{}
-    }
-    with open("database/data.json","w+") as f :
-        data = json.dump(data,f,indent=4)
-
-if not os.path.exists('database/signature'):
-    os.mkdir('database/signature')
-
 if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION == "False":
     if not os.path.exists(f"lavalink"):
         os.makedirs(f"lavalink")
