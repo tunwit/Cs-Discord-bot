@@ -22,6 +22,7 @@ class csbot(commands.Bot):
         )
         self.config = config
         self.mango = MongoClient(config["MONGO"])["Main"]
+        self.cs_mango = MongoClient(config["MONGO"])["CS_BOT"]   
         self.invites = {}
 
     async def setup_hook(self):
