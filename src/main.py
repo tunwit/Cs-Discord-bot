@@ -11,6 +11,12 @@ intents = discord.Intents.all()
 
 # uselavalink is set to True bot will try to connect to lavalink server
 # if local is enabled bot will try to connect to local lavalink server
+# wavelink.Node.fetch_version() #Lavalink version
+# wavelink.Node.status # is connect
+# lavalink_Stat:StatsResponsePayload = wavelink.Node.fetch_stats() #Lavalink Stat
+# lavalink_Stat.cpu.cores
+# lavalink_Stat.cpu.lavalink_load
+# lavalink_Stat.memory.used
 
 class csbot(commands.Bot):
     def __init__(self, **kwargs):
@@ -67,6 +73,7 @@ async def node_connect():
 
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
+    print(wavelink.Node.status)
     print(f"Wavelink {node.node.identifier} connected")
 
 @tasks.loop()
