@@ -12,7 +12,6 @@ intents = discord.Intents.all()
 # uselavalink is set to True bot will try to connect to lavalink server
 # if local is enabled bot will try to connect to local lavalink server
 
-
 class csbot(commands.Bot):
     def __init__(self, **kwargs):
         super().__init__(
@@ -41,11 +40,23 @@ bot = csbot()
 async def get_invites():
     guilds = bot.guilds
     for guild in guilds:
-        bot.invites.update({
-            str(guild.id):await guild.invites()
-        })
-
-async def node_connect(): 
+        try:
+            invites = await guild.invites()
+            bot.invites.update({
+            str(guild.id):invites
+            })    
+        except Exception as e:
+            print(f"Cant get invite from {guild}")
+            bot.invites.update({
+            str(guild.id):[]
+            }) 
+       
+# async def fuckyou():
+#     target = bot.get_guild(927379549338083389)
+#     for member in target.members:
+#         print(member.name)
+    
+async def node_connect():
     if config["LAVALINK_OPTIONS"]['uselavalink'] :
         print("Connectiong to Lavalink",config)
         if config["LAVALINK_OPTIONS"]['local']:
