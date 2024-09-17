@@ -30,6 +30,7 @@ class csbot(commands.Bot):
         self.mango = MongoClient(config["MONGO"])["Main"]
         self.cs_mango = MongoClient(config["MONGO"])["CS_BOT"]   
         self.invites = {}
+        self.node = None
 
     async def setup_hook(self):
         for filename in os.listdir("./cogs"):
@@ -69,11 +70,11 @@ async def node_connect():
             node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=5) # Local Lavalink server
         else:
             node = wavelink.Node(uri ='http://lavalink:2333', password="youshallnotpass",retries=5) # prefered Lavalink server
+        bot.node = node
         await wavelink.Pool.connect(client=bot, nodes=[node])
 
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
-    print(wavelink.Node.status)
     print(f"Wavelink {node.node.identifier} connected")
 
 @tasks.loop()
