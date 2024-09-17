@@ -26,10 +26,10 @@ class managerAPI(commands.Cog):
         if method:
             if not database.find_one({"user_id":str(user.id)}):
                 database.insert_one({"user_id":str(user.id)})
-            await interaction.response.send_message(f"`{user.id}` is Added",ephemeral=True)
+            await interaction.response.send_message(f"`{user.name} {user.id}` is Added",ephemeral=True)
         else:
             database.delete_one({"user_id":str(user.id)})
-            await interaction.response.send_message(f"`{user.id}` is Removed",ephemeral=True)
+            await interaction.response.send_message(f"`{user.name} {user.id}` is Removed",ephemeral=True)
     
     ##discordbug on reciving long int | deprecated
     # @app_commands.command(name="manager_id",description="manager management by id")
