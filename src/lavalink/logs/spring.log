@@ -782,3 +782,7 @@ Update to ensure the YouTube source remains operational!
 2024-09-17T10:38:45.479+07:00  INFO 92932 --- [Lavalink] [pool-17-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
 2024-09-17T10:39:01.272+07:00  INFO 92932 --- [Lavalink] [XNIO-1 task-2] l.server.io.RequestLoggingFilter         : DELETE /v4/sessions/km85bf6zq6177u9g/players/979689935063875584
 2024-09-17T10:39:01.546+07:00  INFO 92932 --- [Lavalink] [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /[0:0:0:0:0:0:0:1]:64059 with status CloseStatus[code=1006, reason=] -- Session can be resumed within the next 60 seconds with id km85bf6zq6177u9g
+2024-09-17T10:40:01.548+07:00  INFO 92932 --- [Lavalink] [pool-18-thread-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2024-09-17T10:40:05.497+07:00  INFO 92932 --- [Lavalink] [SpringApplicationShutdownHook] io.undertow                              : stopping server: Undertow - 2.3.13.Final
+2024-09-17T10:40:05.503+07:00  INFO 92932 --- [Lavalink] [SpringApplicationShutdownHook] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-09-17T10:40:05.506+07:00  INFO 92932 --- [Lavalink] [SpringApplicationShutdownHook] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.

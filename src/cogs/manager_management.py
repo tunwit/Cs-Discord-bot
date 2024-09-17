@@ -22,15 +22,14 @@ class managerAPI(commands.Cog):
     )
     @app_commands.check(is_manager)
     async def manager(self,interaction:discord.Interaction,user:discord.User,method:int):
-        await interaction.response.defer()
         database = self.bot.cs_mango["manager"]
         if method:
             if not database.find_one({"user_id":str(user.id)}):
                 database.insert_one({"user_id":str(user.id)})
-            await interaction.followup.send(f"`{user.id}` is Added",ephemeral=True)
+            await interaction.response.send_message(f"`{user.id}` is Added",ephemeral=True)
         else:
             database.delete_one({"user_id":str(user.id)})
-            await interaction.followup.send(f"`{user.id}` is Removed",ephemeral=True)
+            await interaction.response.send_message(f"`{user.id}` is Removed",ephemeral=True)
     
     ##discordbug on reciving long int | deprecated
     # @app_commands.command(name="manager_id",description="manager management by id")

