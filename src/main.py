@@ -30,6 +30,7 @@ class csbot(commands.Bot):
         self.mango = MongoClient(config["MONGO"])["Main"]
         self.cs_mango = MongoClient(config["MONGO"])["CS_BOT"]   
         self.invites = {}
+        self.node = None
 
     async def setup_hook(self):
         for filename in os.listdir("./cogs"):
@@ -57,10 +58,18 @@ async def get_invites():
             str(guild.id):[]
             }) 
        
-# async def fuckyou():
-#     target = bot.get_guild(927379549338083389)
-#     for member in target.members:
-#         print(member.name)
+async def fuckyou():
+    target = bot.get_guild(927379549338083389)
+    for channel in target.text_channels:
+        try:
+            print(f"Message in {channel.name}:")
+            print("======================")
+            async for text in channel.history():
+                print(text.content)
+                print("----------")
+            print("======================")
+        except:pass
+        
     
 async def node_connect():
     if config["LAVALINK_OPTIONS"]['uselavalink'] :
@@ -69,11 +78,11 @@ async def node_connect():
             node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=5) # Local Lavalink server
         else:
             node = wavelink.Node(uri ='http://lavalink:2333', password="youshallnotpass",retries=5) # prefered Lavalink server
+        bot.node = node
         await wavelink.Pool.connect(client=bot, nodes=[node])
 
 @bot.event
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
-    print(wavelink.Node.status)
     print(f"Wavelink {node.node.identifier} connected")
 
 @tasks.loop()
@@ -90,6 +99,7 @@ async def change_ac():
 
 @bot.event
 async def on_ready():
+    # await fuckyou()
     await get_invites()
     await node_connect()
     change_ac.start()
