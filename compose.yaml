@@ -1,6 +1,7 @@
 services:
   cs_bot:
-    image: cs_bot
+    build:
+      context: .
     networks:
       - lavalink
     volumes:

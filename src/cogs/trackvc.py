@@ -31,7 +31,7 @@ class trackAPI(commands.Cog):
             await interaction.response.send_message(f"<#{channel.id}> No longer Track-vc",ephemeral=True)
 
     @commands.Cog.listener()
-    async def on_voice_state_update(self, member:discord.Member, before, after): 
+    async def on_voice_state_update(self, member:discord.Member, before:discord.VoiceState, after:discord.VoiceState): 
         database = self.bot.cs_mango["trackvc"]
         data = database.find_one({"guild_id":str(member.guild.id)})
         if not data:
@@ -39,11 +39,11 @@ class trackAPI(commands.Cog):
         if member == self.bot.user:
            return
         if before.channel == None and after.channel != None: #None -> join
-            embed=discord.Embed(description=f"<a:check:1259893528499195954> | **<@{member.id}>** Joined 🔊 <#{after.channel.id}>",color=0x19AD3B)
+            embed=discord.Embed(description=f"<a:check:1259893528499195954> | **`{member.display_name}`** Joined 🔊 `{after.channel.name}`",color=0x19AD3B)
         elif before.channel != None and after.channel == None: #Join -> None
-            embed=discord.Embed(description=f"<a:w_check:1259893785207509052> | **<@{member.id}>** Leave 🔊 <#{before.channel.id}>",color=0xcc8c2d)
+            embed=discord.Embed(description=f"<a:w_check:1259893785207509052> | **`{member.display_name}`** Leave 🔊 `{before.channel.name}`",color=0xcc8c2d)
         elif before.channel != None and after.channel != None and before.channel != after.channel: #Join -> Join (move to)
-            embed=discord.Embed(description=f"🔃 **<@{member.id}>** Move from 🔊 <#{before.channel.id}> to 🔊 <#{after.channel.id}>",color=0x2bc2b3)
+            embed=discord.Embed(description=f"🔃 **`{member.display_name}`** Move from 🔊 `{before.channel.name}` to 🔊 `{after.channel.name}`",color=0x2bc2b3)
         else:
             return
         embed.set_author(name=member.name,icon_url=member.display_avatar.url)
