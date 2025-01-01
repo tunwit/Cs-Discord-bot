@@ -54,6 +54,30 @@ class eventManager(commands.Cog):
         vc.task = self.bot.loop.create_task(self.current_time(vc.interaction))
 
     @commands.Cog.listener()
+    async def on_wavelink_track_exception(self, payload:wavelink.TrackExceptionEventPayload):
+        vc: wavelink.Player = payload.player
+        interaction = payload.player.interaction
+        if not vc:
+            return
+        await cleanup(vc.guild, "trackend")
+        embed = embed_fail(interaction, payload.exception['message'])
+        d = await interaction.followup.send(embed=embed)
+        await asyncio.sleep(5)
+        await d.delete()
+
+    @commands.Cog.listener()
+    async def on_wavelink_track_stuck(self, payload: wavelink.TrackStuckEventPayload):
+        vc: wavelink.Player = payload.player
+        interaction = payload.player.interaction
+        if not vc:
+            return
+        await cleanup(vc.guild, "trackend")
+        embed = embed_fail(interaction, "Something wrong when playing this Track, Try again late")
+        d = await interaction.followup.send(embed=embed)
+        await asyncio.sleep(5)
+        await d.delete()
+        
+    @commands.Cog.listener()
     async def on_wavelink_track_end(self, payload:wavelink.payloads.TrackEndEventPayload):
         print(f"ending: {payload.track}")
         vc: wavelink.Player = payload.player

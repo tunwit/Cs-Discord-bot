@@ -77,7 +77,7 @@ async def node_connect():
         if config["LAVALINK_OPTIONS"]['local']:
             node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=5) # Local Lavalink server
         else:
-            node = wavelink.Node(uri ='http://lavalink:2333', password="youshallnotpass",retries=5) # prefered Lavalink server
+            node = wavelink.Node(uri ='https://lavalink.1liner.co', password="youshallnotpass",retries=5) # prefered Lavalink server
         bot.node = node
         await wavelink.Pool.connect(client=bot, nodes=[node])
 
@@ -100,8 +100,8 @@ async def change_ac():
 @bot.event
 async def on_ready():
     # await fuckyou()
-    await get_invites()
     await node_connect()
+    await get_invites()
     change_ac.start()
     print("-------------------")
     print(f"{bot.user} is Ready")
