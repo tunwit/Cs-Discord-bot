@@ -40,7 +40,7 @@ class removeAPI(commands.Cog):
                 vc.queue.delete(index-1)
             embed = embed_success(interaction, "**`{}`** deleted",delete)
             await interaction.followup.send(embed=embed,)
-            await nowplaying.np(self, interaction)
+            await nowplaying().np(interaction)
 
 async def setup(bot):    
   await bot.add_cog(removeAPI(bot))  

@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import time
+import pytz
+from datetime import datetime
 from discord.app_commands import Choice
 
 class trackAPI(commands.Cog):
@@ -47,7 +48,10 @@ class trackAPI(commands.Cog):
         else:
             return
         embed.set_author(name=member.name,icon_url=member.display_avatar.url)
-        embed.set_footer(text = time.strftime("%D | %H:%M:%S"))  
+
+        tz = pytz.timezone("Asia/Bangkok")
+        now = datetime.now(tz)
+        embed.set_footer(text = now.strftime("%D | %H:%M:%S"))  
         channel = member.guild.get_channel(int(data["text_channel"]))
         await channel.send(embed=embed)
 

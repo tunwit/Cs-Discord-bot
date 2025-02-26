@@ -34,7 +34,7 @@ class pp(Button):
         else:
             pp.emoji = "<a:1_:989120454063185940>"
             pp.style = discord.ButtonStyle.green
-        await self.np(self, self.interaction)
+        await self.np(self.interaction)
         try:
             await interaction.followup.send(content="")
         except:
@@ -122,7 +122,7 @@ class lo(Button):
         elif vc.queue.mode == wavelink.QueueMode.loop_all:
             vc.queue.mode = wavelink.QueueMode.normal
             lo.style = discord.ButtonStyle.gray
-        await self.np(self, self.interaction)
+        await self.np(self.interaction)
         try:
             await interaction.followup.send(content="")
         except:
@@ -148,7 +148,7 @@ class dw(Button):
         else:
             volume = vc.volume - 15
         await vc.set_volume(volume)
-        await self.np(self, self.interaction)
+        await self.np(self.interaction)
         try:
             await interaction.followup.send(content="")
         except:
@@ -174,7 +174,7 @@ class uw(Button):
         else:
             volume = vc.volume + 15
         await vc.set_volume(volume)
-        await self.np(self, self.interaction)
+        await self.np(self.interaction)
         try:
             await interaction.followup.send(content="")
         except:
@@ -258,7 +258,7 @@ class au(Button):
         elif vc.autoplay == wavelink.AutoPlayMode.enabled:
             vc.autoplay = wavelink.AutoPlayMode.partial
             au.style = discord.ButtonStyle.gray
-        await self.np(self, self.interaction)
+        await self.np(self.interaction)
         try:
             await interaction.followup.send(content="")
         except:

@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 from discord import app_commands
-import time
+import pytz
+from datetime import datetime
 from discord.app_commands import Choice
 
 class messageAPI(commands.Cog):
@@ -53,7 +54,10 @@ class messageAPI(commands.Cog):
             embed=discord.Embed(description=f"Message sent by <@{author}> deleted in <#{channel}>",color=0x795ae8)
             embed.add_field(name="Content",value=f"` {content} `")
             embed.add_field(name="📫 Attachments",value=f"` {attach} `")
-            embed.set_footer(text = time.strftime("%D | %H:%M:%S"))  
+
+            tz = pytz.timezone("Asia/Bangkok")
+            now = datetime.now(tz)
+            embed.set_footer(text = now.strftime("%D | %H:%M:%S"))  
             guild:discord.Guild = self.bot.get_guild(payload.guild_id)
             channel = guild.get_channel(int(data["text_channel"]))
             await  channel.send(embed=embed)
@@ -87,7 +91,10 @@ class messageAPI(commands.Cog):
             embed.add_field(name="📫 Original Attachments",value=f"` {attach_ori} `",inline=False)
             embed.add_field(name="📫 Edited Attachments",value=f"` {len(payload.data['attachments'])} `",inline=True)
             guild = self.bot.get_guild(payload.guild_id)
-            embed.set_footer(text = time.strftime("%D | %H:%M:%S"))  
+
+            tz = pytz.timezone("Asia/Bangkok")
+            now = datetime.now(tz)
+            embed.set_footer(text = now.strftime("%D | %H:%M:%S"))  
             guild:discord.Guild = self.bot.get_guild(payload.guild_id)
             channel = guild.get_channel(int(data["text_channel"]))
             await  channel.send(embed=embed)

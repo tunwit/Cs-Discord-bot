@@ -30,6 +30,7 @@ class csbot(commands.Bot):
         self.mango = MongoClient(config["MONGO"])["Main"]
         self.cs_mango = MongoClient(config["MONGO"])["CS_BOT"]   
         self.invites = {}
+        self.last_nowplaying = {}
         self.node = None
 
     async def setup_hook(self):
