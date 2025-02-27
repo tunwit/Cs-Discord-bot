@@ -79,6 +79,7 @@ async def node_connect():
             uri ='http://localhost:2333'
             if config["PRODUCTION"] == True:
                 uri ="http://lavalink:2333"
+            print(uri)
             node = wavelink.Node(uri = uri, password="youshallnotpass",retries=5) # Local Lavalink server
         else:
             node = wavelink.Node(uri ='https://lavalink.1liner.co', password="youshallnotpass",retries=5) # prefered Lavalink server
