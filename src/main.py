@@ -74,12 +74,10 @@ async def fuckyou():
     
 async def node_connect():
     if config["LAVALINK_OPTIONS"]['uselavalink'] :
-        print("Connectiong to Lavalink",config)
         if config["LAVALINK_OPTIONS"]['local']:
             uri ='http://localhost:2333'
             if config["PRODUCTION"] == True:
                 uri ="http://lavalink:2333"
-            print(uri)
             node = wavelink.Node(uri = uri, password="youshallnotpass",retries=5) # Local Lavalink server
         else:
             node = wavelink.Node(uri ='https://lavalink.1liner.co', password="youshallnotpass",retries=5) # prefered Lavalink server
@@ -101,6 +99,14 @@ async def change_ac():
         activity = discord.Game(name=status)
         await bot.change_presence(status=discord.Status.online, activity=activity)
         await asyncio.sleep(15)
+def details(config:dict):
+    print("----------------------------")
+    print(f"Token : {config['TOKEN']}")
+    print(f"Application ID : {config['APPLICATION_ID']}")
+    print(f"MONGO: {config['MONGO']}")
+    print(f"Lavalink options: {config['LAVALINK_OPTIONS']}")
+    print(f"Production: {config['PRODUCTION']}")
+    print("----------------------------")
 
 @bot.event
 async def on_ready():
@@ -111,5 +117,6 @@ async def on_ready():
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
-
+    
+details(config)
 bot.run(config["TOKEN"])

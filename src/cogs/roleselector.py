@@ -18,7 +18,7 @@ class role(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot
 
-    @app_commands.command(name="role",description="role selecter")
+    @app_commands.command(name="roleselector",description="role selecter")
     async def role(self,interaction:discord.Interaction,message:str,standard:discord.Role,pay:discord.Role) :
         await interaction.response.defer()
         database = self.bot.cs_mango["role"]
