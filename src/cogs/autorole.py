@@ -16,23 +16,23 @@ class autoroleAPI(commands.Cog):
             return
         if not data:
             return
-        target_role = member.guild.get_role(data['role_id'])
+        target_role = member.guild.get_role(int(data['role_id']))
         await member.add_roles(target_role,atomic=True)
     
 
     @app_commands.command(name="autorole",description="auto role setup")
     async def autorole(self,interaction:discord.Interaction,role:discord.Role):
-        database = self.bot.cs_mango["trackvc"]
+        database = self.bot.cs_mango["autorole"]
         data = database.find_one({"guild_id":str(interaction.guild.id)})
         if not data:  
             database.insert_one({
             "guild_id":str(interaction.guild.id),
             "role_id":str(role.id)
             })  
-            await interaction.response.send_message(f"Giving role`{role.name}` to everyone that join server",ephemeral=True)
+            await interaction.response.send_message(f"Giving role `{role.name}` to everyone that join server",ephemeral=True)
         else:
             database.delete_one({"guild_id":str(interaction.guild.id)})          
-            await interaction.response.send_message(f"`autorole `{role.name}` Cancled",ephemeral=True)
+            await interaction.response.send_message(f"autorole `{role.name}` Cancled",ephemeral=True)
 
 async def setup(bot):    
   await bot.add_cog(autoroleAPI(bot))   

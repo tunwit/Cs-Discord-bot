@@ -28,8 +28,9 @@ class joinleaveAPI(commands.Cog):
         if not data:
             return
         
-        before = self.invites[str(member.guild.id)]
+        before = self.invites.get(str(member.guild.id))
         after = await member.guild.invites()
+
         invite = None
         for event in before:
             if event.uses < self.get_invite(after,event.code).uses:
