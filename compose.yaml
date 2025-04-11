@@ -35,6 +35,7 @@ services:
       - ./lavalink/plugins/:/opt/Lavalink/plugins/
     networks:
       - lavalink
+      - nginx-network
     expose:
       # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
       - 2333
