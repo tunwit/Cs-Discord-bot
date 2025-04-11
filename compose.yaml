@@ -1,6 +1,7 @@
 services:
   cs_bot:
-    image: cs_bot
+    build:
+      context: .
     networks:
       - lavalink
     volumes:
@@ -14,7 +15,7 @@ services:
       MONGO: ${MONGO}
       PRODUCTION: "True"
       USELAVALINK: ${USELAVALINK}
-      LOCALLAVALINK : ${LOCALLAVALINK}
+      LOCALLAVALINK: ${LOCALLAVALINK}
       PYTHONUNBUFFERED: 1
   lavalink:
     # pin the image version to Lavalink v4
@@ -30,9 +31,9 @@ services:
       - LAVALINK_SERVER_PASSWORD=youshallnotpass
     volumes:
       # mount application.yml from the same directory or use environment variables
-      - ./lavalink/application.yml:/opt/Lavalink/application.yml
+      - ./src/lavalink/application.yml:/opt/Lavalink/application.yml
       # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
-      - ./lavalink/plugins/:/opt/Lavalink/plugins/
+      - ./src/lavalink/plugins/:/opt/Lavalink/plugins/
     networks:
       - lavalink
       - nginx-network
@@ -47,5 +48,3 @@ networks:
   # create a lavalink network you can add other containers to, to give them access to Lavalink
   lavalink:
     name: lavalink
-  
-  

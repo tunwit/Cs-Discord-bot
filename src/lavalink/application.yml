@@ -14,23 +14,35 @@ plugins:
       flowerytts: false # Enable Flowery TTS source
       youtube: true # Enable YouTube search source (https://github.com/topi314/LavaSearch)
     spotify:
-      clientId: "spotify_id"
-      clientSecret: "spotify_secret"
+      clientId: "54812d7d753a47e7a391979ea9326c86"
+      clientSecret: "4dce1c03a74d44389107c725fb6e14eb"
       countryCode: "US" # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
       playlistLoadLimit: 6 # The number of pages at 100 tracks each
       albumLoadLimit: 6 # The number of pages at 50 tracks each
+
+  youtube:
+    enabled: true # Whether this source can be used.
+    allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
+    allowDirectVideoIds: true # Whether just video IDs can match. If false, only complete URLs will be loaded.
+    allowDirectPlaylistIds: true # Whether just playlist IDs can match. If false, only complete URLs will be loaded.
+    # The clients to use for track loading. See below for a list of valid clients.
+    # Clients are queried in the order they are given (so the first client is queried first and so on...)
+    clients:
+      - MUSIC
+      - ANDROID_VR
+      - WEB
+      - WEBEMBEDDED
 
 server: # REST and WS server
   port: 2333
   address: 0.0.0.0
 lavalink:
   plugins:
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.2.0"
-      repository: "https://maven.lavalink.dev/releases" # this is optional for lavalink v4.0.0-beta.5 or greater
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.4.1"
+
+    - dependency: "dev.lavalink.youtube:youtube-plugin:1.11.5"
       snapshot: false
 
-    - dependency: "dev.lavalink.youtube:youtube-plugin:1.5.2"
-      snapshot: false # Set to true if you want to use a
   server:
     password: "youshallnotpass"
     channelCount: 16

@@ -31,15 +31,14 @@ class eventManager(commands.Cog):
             elif not interaction.is_expired() and vc.task.cancelled(): # resume update nowplaying after get new interaction
                 vc.task = self.bot.loop.create_task(self.current_time(vc.interaction))
             try:
-                np = await nowplaying.np(self,interaction)
+                np = await nowplaying().np(interaction)
             except discord.errors.NotFound as e:
                 break
             if vc == None:
                 break
             if vc.np == None:
                 break
-            await asyncio.sleep(9)
-            await asyncio.sleep(1)
+            await asyncio.sleep(10)
         vc.task.cancel()
 
     @commands.Cog.listener()
@@ -53,6 +52,30 @@ class eventManager(commands.Cog):
         await asyncio.sleep(0.3)
         vc.task = self.bot.loop.create_task(self.current_time(vc.interaction))
 
+    @commands.Cog.listener()
+    async def on_wavelink_track_exception(self, payload:wavelink.TrackExceptionEventPayload):
+        vc: wavelink.Player = payload.player
+        interaction = payload.player.interaction
+        if not vc:
+            return
+        await cleanup(vc.guild, "trackend")
+        embed = embed_fail(interaction, payload.exception['message'])
+        d = await interaction.followup.send(embed=embed)
+        await asyncio.sleep(5)
+        await d.delete()
+
+    @commands.Cog.listener()
+    async def on_wavelink_track_stuck(self, payload: wavelink.TrackStuckEventPayload):
+        vc: wavelink.Player = payload.player
+        interaction = payload.player.interaction
+        if not vc:
+            return
+        await cleanup(vc.guild, "trackend")
+        embed = embed_fail(interaction, "Something wrong when playing this Track, Try again late")
+        d = await interaction.followup.send(embed=embed)
+        await asyncio.sleep(5)
+        await d.delete()
+        
     @commands.Cog.listener()
     async def on_wavelink_track_end(self, payload:wavelink.payloads.TrackEndEventPayload):
         print(f"ending: {payload.track}")

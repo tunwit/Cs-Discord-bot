@@ -5,6 +5,7 @@ import json
 from discord.app_commands import Choice
 from typing import List
 from datetime import datetime
+import pytz
 
 class joinleaveAPI(commands.Cog):
     def __init__(self, bot):
@@ -27,15 +28,17 @@ class joinleaveAPI(commands.Cog):
         if not data:
             return
         
-        before = self.invites[str(member.guild.id)]
+        before = self.invites.get(str(member.guild.id))
         after = await member.guild.invites()
+
         invite = None
         for event in before:
             if event.uses < self.get_invite(after,event.code).uses:
                 invite = event
+        tz = pytz.timezone("Asia/Bangkok")
         embed=discord.Embed(title=f"{member.name} Join the server",color=0x19AD3B)
         embed.add_field(name="Tag",value=f"<@{member.id}>")
-        embed.add_field(name="Join Date",value=f'` {datetime.now().strftime("%d/%m/%y | %H:%M:%S")} `',inline=True)
+        embed.add_field(name="Join Date",value=f'` {datetime.now(tz).strftime("%d/%m/%y | %H:%M:%S")} `',inline=True)
         embed.add_field(name="Id",value=f'` {member.id} `',inline=False)
         embed.add_field(name="Account Creation",value=f'` {member.created_at.strftime("%d/%m/%y")} `',inline=False)
         
@@ -57,11 +60,12 @@ class joinleaveAPI(commands.Cog):
         if not data:
             return
         
+        tz = pytz.timezone("Asia/Bangkok")
         embed=discord.Embed(title=f"{member.name} Leave the server",color=0xcc8c2d)
         embed.add_field(name="Tag",value=f"<@{member.id}>")
         embed.add_field(name="Id",value=f'` {member.id} `',inline=True)
         embed.add_field(name="Join Date",value=f'` {member.joined_at.strftime("%d/%m/%y | %H:%M:%S")} `',inline=False)
-        embed.add_field(name="Leave Date",value=f'` {datetime.now().strftime("%d/%m/%y | %H:%M:%S")} `',inline=False)
+        embed.add_field(name="Leave Date",value=f'` {datetime.now(tz).strftime("%d/%m/%y | %H:%M:%S")} `',inline=False)
         embed.set_thumbnail(url=member.avatar.url)
         embed.set_footer(text=member.guild.name,icon_url=member.guild.icon.url)
 

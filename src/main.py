@@ -30,6 +30,7 @@ class csbot(commands.Bot):
         self.mango = MongoClient(config["MONGO"])["Main"]
         self.cs_mango = MongoClient(config["MONGO"])["CS_BOT"]   
         self.invites = {}
+        self.last_nowplaying = {}
         self.node = None
 
     async def setup_hook(self):
@@ -73,11 +74,13 @@ async def fuckyou():
     
 async def node_connect():
     if config["LAVALINK_OPTIONS"]['uselavalink'] :
-        print("Connectiong to Lavalink",config)
         if config["LAVALINK_OPTIONS"]['local']:
-            node = wavelink.Node(uri ='http://localhost:2333', password="youshallnotpass",retries=5) # Local Lavalink server
+            uri ='http://localhost:2333'
+            if config["PRODUCTION"] == True:
+                uri ="http://lavalink:2333"
+            node = wavelink.Node(uri = uri, password="youshallnotpass",retries=5) # Local Lavalink server
         else:
-            node = wavelink.Node(uri ='http://lavalink:2333', password="youshallnotpass",retries=5) # prefered Lavalink server
+            node = wavelink.Node(uri ='https://lavalink.1liner.co', password="youshallnotpass",retries=5) # prefered Lavalink server
         bot.node = node
         await wavelink.Pool.connect(client=bot, nodes=[node])
 
@@ -96,15 +99,24 @@ async def change_ac():
         activity = discord.Game(name=status)
         await bot.change_presence(status=discord.Status.online, activity=activity)
         await asyncio.sleep(15)
+def details(config:dict):
+    print("----------------------------")
+    print(f"Token : {config['TOKEN']}")
+    print(f"Application ID : {config['APPLICATION_ID']}")
+    print(f"MONGO: {config['MONGO']}")
+    print(f"Lavalink options: {config['LAVALINK_OPTIONS']}")
+    print(f"Production: {config['PRODUCTION']}")
+    print("----------------------------")
 
 @bot.event
 async def on_ready():
     # await fuckyou()
-    await get_invites()
     await node_connect()
+    await get_invites()
     change_ac.start()
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
-
+    
+details(config)
 bot.run(config["TOKEN"])

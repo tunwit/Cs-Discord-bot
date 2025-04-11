@@ -41,7 +41,7 @@ class loopAPI(commands.Cog):
                 lo.style = discord.ButtonStyle.blurple
             elif vc.queue.mode == wavelink.QueueMode.loop_all:
                 lo.style = discord.ButtonStyle.green
-            await nowplaying.np(self, interaction)
+            await nowplaying().np(interaction)
             embed = embed_success(interaction, "Switch loop to **` {} `** successfull",trans_queueMode[status])
             await interaction.followup.send(embed=embed,ephemeral=True)
 

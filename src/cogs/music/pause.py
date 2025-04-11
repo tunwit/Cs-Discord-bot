@@ -35,7 +35,7 @@ class pauseAPI(commands.Cog):
             re.style = discord.ButtonStyle.red
             re.emoji = "<a:2_:989120456240025670>"
             await vc.pause(True)
-            await nowplaying.np(self, interaction)
+            await nowplaying().np(interaction)
             embed = embed_success(interaction, "Successfully paused ⏸")
             await interaction.followup.send(embed=embed,ephemeral=True)
 

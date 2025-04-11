@@ -30,7 +30,7 @@ class autoplayAPI(commands.Cog):
                 vc.autoplay = wavelink.AutoPlayMode.partial
                 au.style = discord.ButtonStyle.gray
                 embed = embed_success(interaction, "Autoplay successfully **` disabled `**")
-            await nowplaying.np(self, interaction)
+            await nowplaying().np(interaction)
             await interaction.followup.send(embed=embed,ephemeral=True)
 
 async def setup(bot):    
