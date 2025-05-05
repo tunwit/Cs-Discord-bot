@@ -50,3 +50,4 @@ networks:
     name: lavalink
   nginx-network:
     name: nginx-network
+    external: true
