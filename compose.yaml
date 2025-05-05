@@ -48,3 +48,5 @@ networks:
   # create a lavalink network you can add other containers to, to give them access to Lavalink
   lavalink:
     name: lavalink
+  nginx-network:
+    name: nginx-network
