@@ -37,6 +37,7 @@ services:
     user: root
     networks:
       - lavalink
+      - nginx-network
     expose:
       # lavalink exposes port 2333 to connect to for other containers (this is for documentation purposes only)
       - 2333
@@ -48,3 +49,6 @@ networks:
   # create a lavalink network you can add other containers to, to give them access to Lavalink
   lavalink:
     name: lavalink
+  nginx-network:
+    name: nginx-network
+    external: true
