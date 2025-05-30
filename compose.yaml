@@ -19,7 +19,7 @@ services:
       PYTHONUNBUFFERED: 1
   lavalink:
     # pin the image version to Lavalink v4
-    image: ghcr.io/lavalink-devs/lavalink:4
+    image: ghcr.io/lavalink-devs/lavalink:latest
     container_name: lavalink
     restart: unless-stopped
     environment:
@@ -33,7 +33,8 @@ services:
       # mount application.yml from the same directory or use environment variables
       - ./src/lavalink/application.yml:/opt/Lavalink/application.yml
       # persist plugins between restarts, make sure to set the correct permissions (user: 322, group: 322)
-      - ./src/lavalink/plugins/:/opt/Lavalink/plugins/
+      - ./src/lavalink/plugins:/opt/Lavalink/plugins
+    user: root
     networks:
       - lavalink
     expose:
