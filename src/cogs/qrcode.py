@@ -8,6 +8,7 @@ from qrcode.image.styles.moduledrawers.pil import RoundedModuleDrawer
 from qrcode.image.styles.colormasks import RadialGradiantColorMask
 import io
 from typing import Optional
+
 class qrcodeAPI(commands.Cog):
     def __init__(self, bot ):
         self.bot = bot

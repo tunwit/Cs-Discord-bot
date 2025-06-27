@@ -11,6 +11,8 @@ TOKEN = os.getenv("TOKEN")
 APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
 PRODUCTION = os.getenv("PRODUCTION")
+# PRODUCTION = False
+
 LAVALINK_OPTIONS = {
     "uselavalink":True if os.getenv("USELAVALINK") =="True" else False,
     "local":True if os.getenv("LOCALLAVALINK") =="True" else False

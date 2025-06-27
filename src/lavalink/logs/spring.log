@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+2025-05-01T16:09:52.665+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : Starting Launcher v4.0.4 using Java 23.0.2 with PID 6036 (D:\project\csbot\src\lavalink\Lavalink.jar started by USER in D:\project\csbot\src\lavalink)
+2025-05-01T16:09:52.677+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-05-01T16:09:53.600+07:00  INFO 6036 --- [main] l.server.bootstrap.PluginManager         : Found plugin 'lavasrc-plugin' version 4.6.0
+2025-05-01T16:09:53.600+07:00  INFO 6036 --- [main] l.server.bootstrap.PluginManager         : Found plugin 'youtube-plugin' version 1.12.0
+2025-05-01T16:09:53.714+07:00  INFO 6036 --- [main] l.server.bootstrap.PluginManager         : Loaded lavasrc-plugin-4.6.0.jar (182 classes)
+2025-05-01T16:09:53.724+07:00  INFO 6036 --- [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.12.0.jar (16 classes)
+2025-05-01T16:09:53.936+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : Started Launcher in 1.533 seconds (process running for 2.576)
+2025-05-01T16:09:54.007+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : 
+=======
 2025-04-11T14:07:29.092+07:00  INFO 67299 --- [Lavalink] [main] lavalink.server.Launcher                 : Starting Launcher v4.0.8 using Java 22.0.2 with PID 67299 (/Users/littlebirdd/Desktop/project/csbot/src/lavalink/Lavalink.jar started by littlebirdd in /Users/littlebirdd/Desktop/project/csbot/src/lavalink)
 2025-04-11T14:07:29.123+07:00  INFO 67299 --- [Lavalink] [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
 2025-04-11T14:07:29.494+07:00  INFO 67299 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Downloading https://maven.lavalink.dev/releases/com/github/topi314/lavasrc/lavasrc-plugin/4.5.0/lavasrc-plugin-4.5.0.jar
@@ -6,6 +16,7 @@
 2025-04-11T14:07:33.712+07:00  INFO 67299 --- [Lavalink] [main] l.server.bootstrap.PluginManager         : Loaded youtube-plugin-1.12.0.jar (16 classes)
 2025-04-11T14:07:33.798+07:00  INFO 67299 --- [Lavalink] [main] lavalink.server.Launcher                 : Started Launcher in 4.927 seconds (process running for 5.131)
 2025-04-11T14:07:33.823+07:00  INFO 67299 --- [Lavalink] [main] lavalink.server.Launcher                 : 
+>>>>>>> 3733bb4d949ba0c0c4a94d6f30fe895eba3974cf
 
 [32m       .  [31m _                  _ _       _    [32m__ _ _
 [32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
@@ -14,6 +25,42 @@
 [32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
 [0m    =========================================[32m/_/_/_/[0m
 
+<<<<<<< HEAD
+	Version:        4.0.4
+	Build time:     10.03.2024 17:32:10 UTC
+	Branch          HEAD
+	Commit:         bb5e126
+	Commit time:    10.03.2024 17:29:08 UTC
+	JVM:            23.0.2
+	Lavaplayer      2.1.1
+
+2025-05-01T16:09:54.015+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to 1 default profile: "default"
+2025-05-01T16:09:54.726+07:00  WARN 6036 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2025-05-01T16:09:54.747+07:00  INFO 6036 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2025-05-01T16:09:54.747+07:00  INFO 6036 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 727 ms
+2025-05-01T16:09:54.837+07:00  INFO 6036 --- [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Loading LavaSrc plugin...
+2025-05-01T16:09:55.000+07:00  INFO 6036 --- [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Registering Youtube Source audio source manager...
+2025-05-01T16:09:56.041+07:00  INFO 6036 --- [main] dev.lavalink.youtube.plugin.PluginInfo   : ********************************************
+YOUTUBE-SOURCE VERSION 1.13.0 AVAILABLE
+https://github.com/lavalink-devs/youtube-source/releases/tag/1.13.0
+Update to ensure the YouTube source remains operational!
+********************************************
+2025-05-01T16:09:56.066+07:00  INFO 6036 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2025-05-01T16:09:56.294+07:00  INFO 6036 --- [main] c.g.t.lavasrc.plugin.LavaSrcPlugin       : Registering Spotify audio source manager...
+2025-05-01T16:09:56.313+07:00  INFO 6036 --- [main] d.l.youtube.plugin.YoutubePluginLoader   : YouTube source initialised with clients: WEB_REMIX, ANDROID_VR, WEB, WEB_EMBEDDED_PLAYER 
+2025-05-01T16:09:56.508+07:00  INFO 6036 --- [main] l.server.config.KoeConfiguration         : OS: WINDOWS, Arch: X86_64
+2025-05-01T16:09:56.508+07:00  INFO 6036 --- [main] l.server.config.KoeConfiguration         : Enabling JDA-NAS
+2025-05-01T16:09:56.511+07:00  INFO 6036 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: loading with filter null
+2025-05-01T16:09:56.605+07:00  INFO 6036 --- [main] c.s.l.c.natives.NativeLibraryLoader      : Native library udpqueue: successfully loaded.
+2025-05-01T16:09:56.635+07:00  WARN 6036 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2025-05-01T16:09:57.029+07:00  INFO 6036 --- [main] io.undertow                              : starting server: Undertow - 2.3.6.Final
+2025-05-01T16:09:57.066+07:00  INFO 6036 --- [main] org.xnio                                 : XNIO version 3.8.8.Final
+2025-05-01T16:09:57.098+07:00  INFO 6036 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.8.8.Final
+2025-05-01T16:09:57.359+07:00  INFO 6036 --- [main] org.jboss.threads                        : JBoss Threads version 3.5.0.Final
+2025-05-01T16:09:57.639+07:00  INFO 6036 --- [main] o.s.b.w.e.undertow.UndertowWebServer     : Undertow started on port(s) 2333 (http)
+2025-05-01T16:09:57.642+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : Started Launcher in 3.699 seconds (process running for 6.282)
+2025-05-01T16:09:57.643+07:00  INFO 6036 --- [main] lavalink.server.Launcher                 : Lavalink is ready to accept connections.
+=======
 	Version:        4.0.8
 	Build time:     20.09.2024 20:20:10 UTC
 	Branch          HEAD
@@ -116,3 +163,4 @@
 2025-04-11T14:19:08.949+07:00  INFO 68235 --- [Lavalink] [lavalink-shutdown-handler] lavalink.server.io.SocketServer          : Connection closed from /[0:0:0:0:0:0:0:1]:63988 with status CloseStatus[code=1001, reason=] -- Session can be resumed within the next 60 seconds with id 44ouwe25kpw2ta1i
 2025-04-11T14:19:08.951+07:00  INFO 68235 --- [Lavalink] [SpringApplicationShutdownHook] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
 2025-04-11T14:19:08.953+07:00  INFO 68235 --- [Lavalink] [SpringApplicationShutdownHook] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+>>>>>>> 3733bb4d949ba0c0c4a94d6f30fe895eba3974cf

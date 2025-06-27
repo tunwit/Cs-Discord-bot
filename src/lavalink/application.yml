@@ -29,7 +29,6 @@ plugins:
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
       - MUSIC
-      - ANDROID_VR
       - WEB
       - WEBEMBEDDED
 
@@ -38,10 +37,9 @@ server: # REST and WS server
   address: 0.0.0.0
 lavalink:
   plugins:
-    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.6.0"
+    - dependency: "com.github.topi314.lavasrc:lavasrc-plugin:4.7.0"
 
     - dependency: "dev.lavalink.youtube:youtube-plugin:1.13.2"
-      snapshot: false
 
   server:
     password: "youshallnotpass"
