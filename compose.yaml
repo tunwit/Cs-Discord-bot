@@ -44,11 +44,13 @@ services:
     ports:
       # you only need this if you want to make your lavalink accessible from outside of containers
       - "2333:2333"
+      
 
 networks:
   # create a lavalink network you can add other containers to, to give them access to Lavalink
   lavalink:
     name: lavalink
+    external: true
   nginx-network:
     name: nginx-network
     external: true
