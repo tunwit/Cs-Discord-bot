@@ -11,7 +11,7 @@ TOKEN = os.getenv("TOKEN")
 APPLICATION_ID = os.getenv("APPLICATION_ID")
 MONGO = os.getenv("MONGO")
 PRODUCTION = os.getenv("PRODUCTION")
-# PRODUCTION = False
+
 
 LAVALINK_OPTIONS = {
     "uselavalink":True if os.getenv("USELAVALINK") =="True" else False,
@@ -23,7 +23,7 @@ if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION 
     if not os.path.isfile("lavalink/Lavalink.jar"):
         try:
             print('Downloading Lavalink.jar.')
-            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.0.7/Lavalink.jar', stream=True)
+            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.1.1/Lavalink.jar', stream=True)
             response.raise_for_status()
             with open("lavalink/Lavalink.jar", 'wb') as file:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -65,6 +65,6 @@ config = {
     "APPLICATION_ID":APPLICATION_ID,
     "MONGO":MONGO,
     "LAVALINK_OPTIONS":LAVALINK_OPTIONS,
-    "PRODUCTION":bool(PRODUCTION)
+    "PRODUCTION":True if PRODUCTION == "True" else False
 }
 

@@ -21,6 +21,8 @@ plugins:
       albumLoadLimit: 6 # The number of pages at 50 tracks each
 
   youtube:
+    remoteCipher:
+      url: "https://cipher.kikkia.dev/"
     enabled: true # Whether this source can be used.
     allowSearch: true # Whether "ytsearch:" and "ytmsearch:" can be used.
     allowDirectVideoIds: true # Whether just video IDs can match. If false, only complete URLs will be loaded.
@@ -29,8 +31,9 @@ plugins:
     # Clients are queried in the order they are given (so the first client is queried first and so on...)
     clients:
       - MUSIC
+      - ANDROID_VR
       - WEB
-      - WEBEMBEDDED
+      - WEBEMBEDDED 
 
 server: # REST and WS server
   port: 2333
