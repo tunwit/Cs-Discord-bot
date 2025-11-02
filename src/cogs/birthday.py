@@ -33,7 +33,11 @@ class birthdayAPI(commands.Cog):
                     embed.add_field(name=f"Today is **{first['nickname']}** Birthday!! ",value=f"**`Claps to {first['nickname']}`**")
                 embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff']} `** days",inline=False)
                 
-            fmt = "\n".join(f"{index + 1}. {row['nickname']} {row['birthday'].strftime("%b %d, %Y")} In {row['diff']} days" for index,row in persons.iterrows())
+            fmt = "\n".join(
+                f"{idx + 1}. {row['nickname']} — {row['birthday'].strftime('%b %d, %Y')} "
+                f"({row['diff']} days left)"
+                for idx, row in enumerate(persons.itertuples(index=False))
+            )
             embed.add_field(name="Upcoming",value=f"`{fmt}`",inline=False)
             pages.append(embed)
                 
