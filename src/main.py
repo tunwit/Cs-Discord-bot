@@ -116,7 +116,7 @@ async def birthday_check():
     
     for _,person in birth.iterrows():
         print(person["fullname"])
-        await channel.send(content=f"วันนี้เป็นวันเกิดของ {person["nickname"]} :tada: \n@everyone", embed=BirthDayAPI.createBirthDayEmbed(person))
+        await channel.send(content=f"วันนี้เป็นวันเกิดของ {person['nickname']} :tada: \n@everyone", embed=BirthDayAPI.createBirthDayEmbed(person))
 
          
 

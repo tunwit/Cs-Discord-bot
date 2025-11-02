@@ -1,4 +1,4 @@
-discord.py == 2.4.0
+discord.py == 2.6.4
 beautifulsoup4 == 4.12.3
 wavelink == 3.4.1
 pymongo == 4.8.0
@@ -12,3 +12,4 @@ python-dotenv ==1.0.1
 requests == 2.32.3
 pillow == 10.4.0
 pytz
+pandas
