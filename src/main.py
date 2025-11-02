@@ -105,7 +105,7 @@ async def birthday_check():
     print("Checking birthday")
     print("==============")
 
-    ANNOUNCE_CHANNEL_ID = 1159652394976686211
+    ANNOUNCE_CHANNEL_ID = config["BIRTHDAY_NOTIFY_CHANNEL"]
     birth:pd.DataFrame = await BirthDayAPI.getBirthDayToday()
 
     channel = await bot.fetch_channel(ANNOUNCE_CHANNEL_ID)
@@ -116,7 +116,7 @@ async def birthday_check():
     
     for _,person in birth.iterrows():
         print(person["fullname"])
-        await channel.send(content=f"วันนี้เป็นวันเกิดของ {person["nickname"]} :tada: ", embed=BirthDayAPI.createBirthDayEmbed(person))
+        await channel.send(content=f"วันนี้เป็นวันเกิดของ {person["nickname"]} :tada: \n@everyone", embed=BirthDayAPI.createBirthDayEmbed(person))
 
          
 
