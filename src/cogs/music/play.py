@@ -87,7 +87,7 @@ class playAPI(commands.Cog):
     @app_commands.command(name="play", description="play music")
     @app_commands.describe(search="Music name")
     async def play(self, interaction: discord.Interaction, search: str):
-        await interaction.response.defer()
+        await interaction.response.defer(thinking=True)
         if not interaction.user.voice:
             embed = embed_fail(interaction,"❌ You are not currently in voice channel")
             await interaction.followup.send(embed=embed,ephemeral=True)

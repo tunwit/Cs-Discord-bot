@@ -7,6 +7,12 @@ from pymongo.mongo_client import MongoClient
 import wavelink
 import itertools
 import asyncio
+import datetime
+from utility.BirthDay import BirthDayAPI
+from ui.embed_gen import *
+import pandas as pd
+import random
+THAI_TZ = datetime.timezone(datetime.timedelta(hours=7))
 intents = discord.Intents.all()
 
 # uselavalink is set to True bot will try to connect to lavalink server
@@ -88,6 +94,32 @@ async def node_connect():
 async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
     print(f"Wavelink {node.node.identifier} connected")
 
+# @tasks.loop(time=datetime.time(hour=0, minute=0, tzinfo=THAI_TZ))
+# async def birthday_check():
+#     print("checked!")
+
+
+@tasks.loop(time=datetime.time(hour=0, minute=0, tzinfo=THAI_TZ))
+async def birthday_check():
+    print("==============")
+    print("Checking birthday")
+    print("==============")
+
+    ANNOUNCE_CHANNEL_ID = 1159652394976686211
+    birth:pd.DataFrame = await BirthDayAPI.getBirthDayToday()
+
+    channel = await bot.fetch_channel(ANNOUNCE_CHANNEL_ID)
+    if not channel: return
+
+    if(birth.shape[0] == 0):return
+    print("Birthday found")
+    
+    for _,person in birth.iterrows():
+        print(person["fullname"])
+        await channel.send(content=f"วันนี้เป็นวันเกิดของ {person["nickname"]} :tada: ", embed=BirthDayAPI.createBirthDayEmbed(person))
+
+         
+
 @tasks.loop()
 async def change_ac():
     statuses = [
@@ -99,6 +131,8 @@ async def change_ac():
         activity = discord.Game(name=status)
         await bot.change_presence(status=discord.Status.online, activity=activity)
         await asyncio.sleep(15)
+
+
 def details(config:dict):
     print("----------------------------")
     print(f"Token : {config['TOKEN']}")
@@ -114,6 +148,7 @@ async def on_ready():
     await node_connect()
     await get_invites()
     change_ac.start()
+    birthday_check.start()
     print("-------------------")
     print(f"{bot.user} is Ready")
     print("-------------------")
