@@ -29,7 +29,7 @@ class BirthDayAPI:
         df['age'] = ((pd.Timestamp.now() - df['birthday']) / pd.Timedelta(days=365.25)).astype(int)
         df["diff"] = df.apply(BirthDayAPI._days_until_birthday,axis=1)
 
-        df.sort_values(by=["diff","fullname"])
+        df.sort_values(by=["diff"])
 
     @staticmethod
     def _days_until_birthday(row):
