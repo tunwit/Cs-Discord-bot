@@ -32,10 +32,9 @@ class birthdayAPI(commands.Cog):
                 if first['diff'] == 0:
                     embed.add_field(name=f"Today is **{first['nickname']}** Birthday!! ",value=f"**`Claps to {first['nickname']}`**")
                 embed.add_field(name="Next",value=f"**` {first['nickname']} `** In **` {first['diff']} `** days",inline=False)
-                
             fmt = "\n".join(
-                f"{idx + 1}. {row['nickname']} — {row['birthday'].strftime('%b %d, %Y')} "
-                f"({row['diff']} days left)"
+                f"{(idx + 1) + start}. {row.nickname} — {row.birthday.strftime('%b %d, %Y')} "
+                f"({row.diff} days left)"
                 for idx, row in enumerate(persons.itertuples(index=False))
             )
             embed.add_field(name="Upcoming",value=f"`{fmt}`",inline=False)

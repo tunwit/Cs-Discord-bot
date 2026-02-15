@@ -50,7 +50,7 @@ class BirthDayAPI:
     @staticmethod
     async def getBirthDayToday():
         df = await BirthDayAPI._loadData()
-        birthToday = df[df['diff'] == 0] 
+        birthToday = df[df['diff'] == 20] 
 
         return birthToday
     

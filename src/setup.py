@@ -13,7 +13,6 @@ MONGO = os.getenv("MONGO")
 PRODUCTION = os.getenv("PRODUCTION")
 BIRTHDAY_NOTIFY_CHANNEL = os.getenv("BIRTHDAY_NOTIFY_CHANNEL")
 
-
 LAVALINK_OPTIONS = {
     "uselavalink":True if os.getenv("USELAVALINK") =="True" else False,
     "local":True if os.getenv("LOCALLAVALINK") =="True" else False
@@ -24,7 +23,7 @@ if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION 
     if not os.path.isfile("lavalink/Lavalink.jar"):
         try:
             print('Downloading Lavalink.jar.')
-            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.1.1/Lavalink.jar', stream=True)
+            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.1.2/Lavalink.jar', stream=True)
             response.raise_for_status()
             with open("lavalink/Lavalink.jar", 'wb') as file:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -69,4 +68,5 @@ config = {
     "PRODUCTION":True if PRODUCTION == "True" else False,
     "BIRTHDAY_NOTIFY_CHANNEL":BIRTHDAY_NOTIFY_CHANNEL
 }
+
 

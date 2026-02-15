@@ -99,7 +99,7 @@ async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
 #     print("checked!")
 
 
-@tasks.loop(time=datetime.time(hour=0, minute=0, tzinfo=THAI_TZ))
+@tasks.loop(time=datetime.time(hour=12, minute=00, tzinfo=THAI_TZ))
 async def birthday_check():
     print("==============")
     print("Checking birthday")
@@ -107,15 +107,12 @@ async def birthday_check():
 
     ANNOUNCE_CHANNEL_ID = config["BIRTHDAY_NOTIFY_CHANNEL"]
     birth:pd.DataFrame = await BirthDayAPI.getBirthDayToday()
-
     channel = await bot.fetch_channel(ANNOUNCE_CHANNEL_ID)
     if not channel: return
 
     if(birth.shape[0] == 0):return
-    print("Birthday found")
     
     for _,person in birth.iterrows():
-        print(person["fullname"])
         await channel.send(content=f"วันนี้เป็นวันเกิดของ {person['nickname']} :tada: \n@everyone", embed=BirthDayAPI.createBirthDayEmbed(person))
 
          
