@@ -148,6 +148,8 @@ async def on_ready():
     birthday_check.start()
     print("-------------------")
     print(f"{bot.user} is Ready")
+    print(f"Discord.py Version : {discord.version_info}")
+
     print("-------------------")
     
 details(config)

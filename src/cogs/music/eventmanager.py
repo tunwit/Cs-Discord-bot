@@ -23,6 +23,7 @@ class eventManager(commands.Cog):
         except:pass
         vc.np = None
         while True:
+            
             vc: wavelink.Player = interaction.guild.voice_client
             if interaction.is_expired():
                 try:

@@ -23,7 +23,7 @@ if LAVALINK_OPTIONS["uselavalink"] and LAVALINK_OPTIONS["local"] and PRODUCTION 
     if not os.path.isfile("lavalink/Lavalink.jar"):
         try:
             print('Downloading Lavalink.jar.')
-            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.1.2/Lavalink.jar', stream=True)
+            response = requests.get('https://github.com/lavalink-devs/Lavalink/releases/download/4.2.2/Lavalink.jar', stream=True)
             response.raise_for_status()
             with open("lavalink/Lavalink.jar", 'wb') as file:
                 for chunk in response.iter_content(chunk_size=8192):
