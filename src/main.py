@@ -101,12 +101,21 @@ async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
 
 @tasks.loop(time=datetime.time(hour=12, minute=00, tzinfo=THAI_TZ))
 async def birthday_check():
+    user = None
+    try:
+        user = await bot.fetch_user(407176297991634954)
+    except:
+        pass
+    if(user):
+        await user.send("Checking birthday")
     print("==============")
     print("Checking birthday")
     print("==============")
 
     ANNOUNCE_CHANNEL_ID = config["BIRTHDAY_NOTIFY_CHANNEL"]
     birth:pd.DataFrame = await BirthDayAPI.getBirthDayToday()
+    if(user):
+        await user.send(f"Result are ```{birth.to_csv()}```")
     channel = await bot.fetch_channel(ANNOUNCE_CHANNEL_ID)
     if not channel: return
 
