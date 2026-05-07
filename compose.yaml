@@ -1,7 +1,6 @@
 services:
   cs_bot:
-    build:
-      context: .
+    image: littlebirdd/cs-bot:latest
     networks:
       - lavalink
     volumes:
