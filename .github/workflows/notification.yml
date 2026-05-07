@@ -1,0 +1,49 @@
+name: Notify to Discord Webhook
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  notify:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Sanitize Commit Message
+        id: sanitize
+        run: |
+          msg="${{ github.event.head_commit.message }}"
+          msg="${msg//$'\n'/ }"
+          msg="${msg:0:300}"
+          echo "msg=$msg" >> $GITHUB_OUTPUT
+
+      - name: discord
+        uses: rguillaume/discord-action-embed@v1.0.2
+        with:
+          webhook: ${{ secrets.DISCORD_FE_WEBHOOK }}
+          message: "📦 New push to **${{ github.repository }}** on `develop`"
+          embed: >
+            {
+              "color": 3066993,
+              "title": "🚀 New Push",
+              "description": "**Commit:** ${{ steps.sanitize.outputs.msg }}",
+              "url": "${{ github.event.head_commit.url }}",
+              "author": {
+                "name": "${{ github.actor }}",
+                "icon_url": "https://github.com/${{ github.actor }}.png"
+              },
+              "fields": [
+                {
+                  "name": "Branch",
+                  "value": "${{ github.ref_name }}",
+                  "inline": true
+                },
+                {
+                  "name": "Commit ID",
+                  "value": "`${{ github.sha }}`",
+                  "inline": true
+                }
+              ],
+              "footer": {
+                "text": "GitHub Actions"
+              },
+              "timestamp": "${{ github.event.head_commit.timestamp }}"
+            }
