@@ -11,7 +11,7 @@ import datetime
 from utility.BirthDay import BirthDayAPI
 from ui.embed_gen import *
 import pandas as pd
-import random
+
 THAI_TZ = datetime.timezone(datetime.timedelta(hours=7))
 intents = discord.Intents.all()
 
@@ -23,6 +23,8 @@ intents = discord.Intents.all()
 # lavalink_Stat.cpu.cores
 # lavalink_Stat.cpu.lavalink_load
 # lavalink_Stat.memory.used
+
+
 
 class csbot(commands.Bot):
     def __init__(self, **kwargs):
@@ -99,7 +101,7 @@ async def on_wavelink_node_ready(node: wavelink.NodeReadyEventPayload):
 #     print("checked!")
 
 
-@tasks.loop(time=datetime.time(hour=12, minute=00, tzinfo=THAI_TZ))
+@tasks.loop(time=datetime.time(hour=6, minute=00, tzinfo=THAI_TZ))
 async def birthday_check():
     user = None
     try:
