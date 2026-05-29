@@ -2,9 +2,9 @@ import pandas as pd
 import datetime
 import discord
 import random
+THAI_TZ = datetime.timezone(datetime.timedelta(hours=7))
 
 class BirthDayAPI:
-
     @staticmethod
     def _parse_birthday(date_str):
             try:
@@ -25,15 +25,19 @@ class BirthDayAPI:
         
     @staticmethod
     def _setupColumnData(df:pd.DataFrame):
+        now = datetime.datetime.now(THAI_TZ).replace(tzinfo=None)
         df["birthday"] = df["birthday"].apply(BirthDayAPI._parse_birthday)
-        df['age'] = ((pd.Timestamp.now() - df['birthday']) / pd.Timedelta(days=365.25)).astype(int)
+        df['age'] = (
+            (pd.Timestamp(now) - df['birthday'])
+            / pd.Timedelta(days=365.25)
+        ).astype(int)
         df["diff"] = df.apply(BirthDayAPI._days_until_birthday,axis=1)
 
         df.sort_values(by=["diff"], inplace=True)
 
     @staticmethod
     def _days_until_birthday(row):
-        today = datetime.date.today()
+        today = datetime.datetime.now(THAI_TZ).date()
         next_birthday = datetime.date(today.year, row["birthday"].month, row["birthday"].day)
         if next_birthday < today:
             next_birthday = datetime.date(today.year + 1, row["birthday"].month, row["birthday"].day)
@@ -91,7 +95,7 @@ class BirthDayAPI:
         embed.add_field(name="👤 ชื่อ", value=fullname or "-", inline=True)
         if age is not None:
             embed.add_field(name="🎂 อายุ", value=f"{age} ปี", inline=True)
-        embed.add_field(name="📅 วันที่", value=datetime.datetime.today().strftime("%d/%m/%Y"), inline=False)
+        embed.add_field(name="📅 วันที่", value=datetime.datetime.now(THAI_TZ).strftime("%d/%m/%Y"), inline=False)
         embed.set_footer(text="🎉 ขอให้วันนี้เป็นวันที่ดี 🎉")
 
         return embed
